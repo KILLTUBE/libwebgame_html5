@@ -1,3 +1,60 @@
+// just change some .js files and call reload() 
+// each js function will be overwritten while the game keeps running, very nice for quick testing/prototyping
+
+url = "../libwebgame_assets/";
+
+whenReadyCallbacks = [];
+
+globals = {}
+globals_pc = {} // for PlayCanvas... fixing prototypes doesnt work for PC yet, gotta figure out what they do exactly
+
+// input.js
+// debugKeys = true
+debugKeys = false;
+
+// downloads.js
+downloads = [];
+
+NULL = 0;
+
+// ioq3_websocket.js
+ws_url = "ws://" + window.location.hostname + ":8080";
+ws_debug = false;
+
+// game.js			
+console.error = console.log;
+starttime = Date.now();
+showQuake = false;
+//$(document).ready(function() {
+
+
+// deepdreamers.js
+//DeepDreamers.classes = [];
+
+// pc_fetch.js
+// resolve the promise with cached asset.resource if its already loaded
+// works around the limitation of PlayCanvas loadFromUrl API which only callbacks once
+cached = {};
+
+// pc_maila_model.js
+mailas = [];
+
+// pc_maila_skeleton.js
+skeletons = [];
+
+// pc_idtech3.js
+refents = {};
+trmodels = {};
+globalDisableCount = 0;
+globalEnabledCount = 0;
+
+// pc_kungmesh.js
+cache_kungmesh = {};
+
+
+
+
+
 Script = function() {}
 Script.fetch = function(url) {
 	return new Promise(function(resolve, reject) {
@@ -96,11 +153,3 @@ load_scripts = async function() {
 
 	await reload();
 }
-
-load_scripts().then(function() {
-	//main()
-
-	// pc_maila_anim.js
-	//init_pc_maila_anim()
-	init_socket_io();
-})
