@@ -80,7 +80,6 @@ reload = async function() {
 	urls.push("main.js");
 	urls.push("input.js");
 	urls.push("chat.js");
-	urls.push("download.js");
 	urls.push("emcc.js");
 	urls.push("ioq3.js");
 	urls.push("ioq3_websocket.js");
