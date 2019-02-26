@@ -1,0 +1,83 @@
+<script>
+
+	
+ws = new WebSocket("ws://deepdreamers.org:8080");
+ws.binaryType = "arraybuffer"
+ws.onopen = function () {
+	//ws.send('Ping');
+	console.log("connected");
+};
+ws.onerror = function (error) {
+	console.log('WebSocket Error ' + error);
+};
+
+function logBlob(msg, blob) {
+	var fileReader = new FileReader();
+	fileReader.onload = function() {
+		console.log(msg, this.result);
+	};
+	fileReader.readAsText(blob);	
+}
+
+ws.onmessage = function (e) {
+	wsmsg = e;
+	
+	
+	
+	//logBlob("Server response: ", e.data);
+	str  = String.fromCharCode.apply(null, new Uint8Array(e.data))
+	console.log("From Server: ", str);
+};
+
+
+
+function getstatus() {
+	
+	// wtf doesnt this work anymore? might be nodejs/julia difference...
+	//ws.send("\xff\xff\xff\xffgetstatus");
+	ws.send(new Uint8Array([255,255,255,255,103,101,116,115,116,0x61,116,117,115]))
+}
+function getecho() {
+	
+	ws.send("\xff\xff\xff\xffecho lol");
+}
+
+</script>
+
+
+
+<button onclick="getstatus()">getstatus()</button>
+<button onclick="getecho()">echo()</button>
+<button onclick="ws.close()">ws.close()</button>
+
+
+
+ws = new WebSocket("ws://deepdreamers.org:8080")
+WebSocket {url: "ws://deepdreamers.org:8080/", readyState: 0, bufferedAmount: 0, onopen: null, onerror: null, …}
+ws.onmessage = function(msg) {console.log(msg) }
+ƒ (msg) {console.log(msg) }
+ws.send(new Uint8Array([255,255,255,255,103,101,116,115,116,97,116,97,116,117,115]))
+undefined
+VM629:1 MessageEvent {isTrusted: true, data: Blob, origin: "ws://deepdreamers.org:8080", lastEventId: "", source: null, …}
+ws.binaryType
+"blob"
+ws.binaryType = "arraybuffer"
+"arraybuffer"
+ws.send(new Uint8Array([255,255,255,255,103,101,116,115,116,97,116,97,116,117,115]))
+undefined
+VM629:1 MessageEvent {isTrusted: true, data: ArrayBuffer, origin: "ws://deepdreamers.org:8080", lastEventId: "", source: null, …}bubbles: falsecancelBubble: falsecancelable: falsecomposed: falsecurrentTarget: WebSocket {url: "ws://deepdreamers.org:8080/", readyState: 1, bufferedAmount: 0, onopen: null, onerror: null, …}data: ArrayBuffer {}byteLength: (...)__proto__: ArrayBufferdefaultPrevented: falseeventPhase: 0isTrusted: truelastEventId: ""origin: "ws://deepdreamers.org:8080"path: []ports: nullreturnValue: truesource: nullsrcElement: WebSocket {url: "ws://deepdreamers.org:8080/", readyState: 1, bufferedAmount: 0, onopen: null, onerror: null, …}target: WebSocket {url: "ws://deepdreamers.org:8080/", readyState: 1, bufferedAmount: 0, onopen: null, onerror: null, …}timeStamp: 153707.065type: "message"__proto__: MessageEvent
+ws.onmessage = function(msg) {m=msg; console.log(msg) }
+ƒ (msg) {m=msg; console.log(msg) }
+ws.send(new Uint8Array([255,255,255,255,103,101,116,115,116,97,116,97,116,117,115]))
+undefined
+VM666:1 MessageEvent {isTrusted: true, data: ArrayBuffer, origin: "ws://deepdreamers.org:8080", lastEventId: "", source: null, …}
+String(m.data)
+"[object ArrayBuffer]"
+m.data
+ArrayBuffer {}
+new Uint8Array(m.data)
+Uint8Array(15) [255, 255, 255, 255, 103, 101, 116, 115, 116, 97, 116, 97, 116, 117, 115]0: 2551: 2552: 2553: 2554: 1035: 1016: 1167: 1158: 1169: 9710: 11611: 9712: 11613: 11714: 115buffer: (...)byteLength: (...)byteOffset: (...)length: (...)Symbol(Symbol.toStringTag): (...)__proto__: TypedArray
+String(new Uint8Array(m.data))
+"255,255,255,255,103,101,116,115,116,97,116,97,116,117,115"
+String.fromCharCode.apply(null, new Uint8Array(m.data))
+"ÿÿÿÿgetstatatus"
