@@ -36,12 +36,10 @@ reload = async function() {
 	urls.push("deepdreamers.js");
 	urls.push("stuff_math.js");
 	urls.push("fetch.js");
-	urls.push("playcanvas/toji/util/game-shim.js");
-	urls.push("playcanvas/toji/util/gl-matrix-min.js");
-	urls.push("playcanvas/toji/util/stats.min.js");
-	urls.push("playcanvas/toji/util/binary-file.js");
-	urls.push("playcanvas/toji/util/gl-matrix-min.js");
-	urls.push("playcanvas/toji/q3bsp_worker.js");
+
+	urls.push("toji_binaryfile.js");
+	urls.push("toji_q3bsp_worker.js");
+
 	urls.push("pc_gltf_new.js");
 	urls.push("pc_maila.js");
 	urls.push("pc_samba.js");
@@ -68,7 +66,6 @@ reload = async function() {
 	urls.push("stuff_html.js");
 	urls.push("stuff_random.js");
 	urls.push("libwebgame.js");
-	urls.push("socket.io.slim.js");
 	urls.push("socketio_stuff.js");
 
 	var files = []; // bunch of <script> promises
@@ -86,8 +83,10 @@ reload = async function() {
 load_scripts = async function() {
 	var prefix = window.location.origin; // == "http://127.0.0.1"
 
-	await Script.fetch("jquery-3.2.1.min.js");
-	await Script.fetch("jquery.fullscreen.js");
+	await Script.fetch(prefix + "/libwebgame_vendorstuff/jquery-3.2.1.min.js");
+	await Script.fetch(prefix + "/libwebgame_vendorstuff/jquery.fullscreen.js");
+	await Script.fetch(prefix + "/libwebgame_vendorstuff/gl-matrix-min.js");
+	await Script.fetch(prefix + "/libwebgame_vendorstuff/socket.io.slim.js");
 
 	await Script.fetch(prefix + "/playcanvas-engine/build/output/playcanvas-latest.js");
 
