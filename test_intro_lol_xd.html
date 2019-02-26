@@ -1,43 +1,45 @@
-<style>
-* {
-	margin: 0;
-	padding: 0;
-}
-</style>
-<body>
+<html>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<head>
+		<script>
+			
+			VideoIntro = function() {
+				this.url = "../libwebgame_assets/intro_lol_xd.mp4";
+				this.video = document.createElement("video");
+				document.body.appendChild(this.video);
+				this.video.oncanplaythrough = function() {
+					this.resizeFull();
+					this.video.play();
+				}.bind(this);
+				this.video.src = this.url;
+			}
 
-</body>
+			VideoIntro.prototype.resizeFull = function(w, h) {
+				var w = window.innerWidth;
+				var h = window.innerHeight;
+				this.video.width = w;
+				this.video.style.width = w;
+				this.video.height = h;
+				this.video.style.height = h;
+			}
 
-<script>
+			window.onload = function() {
+				videoIntro = new VideoIntro()
+				videoIntro.resizeFull()
 
-VideoIntro = function() {
-	this.url = "../libwebgame_assets/intro_lol_xd.mp4";
-	var video = document.createElement("video");
-	video.src = this.url;
-	var self = this;
-	video.onloadeddata = function() {
-		self.resizeFull();
-		video.play();
-	}
-	document.body.appendChild(video)
-	this.video = video;
-}
-
-VideoIntro.prototype.resizeFull = function(w, h) {
-	var w = window.innerWidth;
-	var h = window.innerHeight;
-	this.video.width = w;
-	this.video.style.width = w;
-	this.video.height = h;
-	this.video.style.height = h;
-}
-
-videoIntro = new VideoIntro()
-videoIntro.resizeFull()
-
-document.body.style.backgroundColor = "black"
-document.body.onresize = function() {
-	videoIntro.resizeFull()
-}
-
-</script>
+				document.body.style.backgroundColor = "black";
+				document.body.onresize = function() {
+					videoIntro.resizeFull();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		lol xd
+	</body>
+</html>
