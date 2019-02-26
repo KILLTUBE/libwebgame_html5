@@ -19,17 +19,6 @@ fullwindow = function() {
 	fixCanvasSizes(window.innerWidth, window.innerHeight);
 }
 
-checkQuakeDownloadsReady = function() {
-	if (downloadProjectLibAcidTech.ready()) {
-		//console.log("all downloads READEEEY")
-		ws = connect();
-		main_playcanvas();
-	} else {
-		setTimeout(checkQuakeDownloadsReady, 1);
-	}
-	
-}
-
 ticks = function() {
 	return Date.now() - starttime;
 }

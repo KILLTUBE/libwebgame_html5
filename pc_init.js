@@ -82,14 +82,15 @@ main_playcanvas = async function() {
 	//playbot = Playbot()
 	
 	_q3_main();
+	q3config();
 	//Cmd_ExecuteString("connect :");
 	showQuake = true;
 	imgui_show = false;
 	await maila_init();
 	//await devmap("atcs")
 	//await devmap("mp_beginning_quake3")
-	//await devmap("mp_surf_utopia");
-	await devmap("haus");
+	await devmap("mp_surf_utopia");
+	//await devmap("haus");
 	
 	gltf_maila_hands = await spawn_maila_hands();
 	gltf_maila_hands.animComponent.playSubstring("idle");

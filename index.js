@@ -123,6 +123,7 @@ reload = async function() {
 	urls.push("stuff_html.js");
 	urls.push("stuff_random.js");
 	urls.push("socketio_stuff.js");
+	urls.push("q3config.js");
 
 	var files = []; // bunch of <script> promises
 
@@ -153,4 +154,5 @@ load_scripts = async function() {
 	await reload();
 
 	await Script.fetch("libwebgame.js");
+
 }
