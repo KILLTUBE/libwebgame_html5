@@ -1,0 +1,217 @@
+<html>
+	<head>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<style>
+			/*
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0px none;
+			}
+			*/
+			body {
+				/* for some reason this influences webgl color stuff */
+				/*background-color: black; 
+				color: white;*/
+			}
+
+			#canvas_and_overlay {
+				background-color: black;
+				position: relative;
+				left: 0px;
+				top: 0px;
+				width: 900px;
+				height: 600px;
+			}
+
+			#canvas {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+			}
+
+			#overlay {
+				top: 0px;
+				left: 0px;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+
+			#overlay h1 {
+				color: white;
+			}
+
+
+			/* CHAT */
+
+			#chat {
+				/*border-left: 3px solid silver;*/
+				overflow: hidden;
+				width: 100%;
+				/*box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);*/
+				display: none; /*invisible by default*/
+			}
+			#chat div table {
+				/*transform: scaleX(-1);*/
+				width: 100%;
+			}
+			#chat td {
+				font-weight: bold;
+				color: #ffffffdd; /* white, but not extreme white... easier on my eyes */
+				font-size: 14px;
+				font-family: "Lucida Console", "Trebuchet MS";
+				/*line-height: 0.8em;*/
+				line-height: 14px;
+			}
+			#chatdiv {
+				height: 200px;
+				overflow-y: scroll;
+				background: rgba(0,0,0,0.6);
+				/*direction: rtl;*/
+				/*transform: scaleX(-1); //Reflects the parent horizontally*/
+			}
+			#chat input {
+				width: 100%;
+				border: 0px solid black;
+				border-bottom: 1px solid #e7ff003b;
+				border-top: 1px solid #e7ff003b;				
+				font-weight: bold;
+				/*background: transparent;*/
+				background: rgba(0, 255, 21, 0.08);
+				/*background: rgba(200,200,255,0.2);*/
+			}
+			#chat input:focus {
+				outline: none;
+			}
+			#chat hr {
+				width: 100%;
+				margin: 0px;
+				/*align: left;*/
+				height: 1px;
+				border: 0;
+				background: linear-gradient(to right, black, transparent, transparent);
+			}
+			#chat table {
+
+				max-height: 200px;
+			}
+
+			.emoji {
+				font-size: 1.5em;
+				display: inline;
+				/* position: relative; */
+				/* top: 0.8ex; */
+				vertical-align: -0.1em;
+			}
+			
+			/* something else */
+			.colorcode_0 { font-weight: bold; color: #000000; /*background-color: white;    opacity:0.5;        */ }
+			.colorcode_1 { font-weight: bold; color: #DA0120;              }
+			.colorcode_2 { font-weight: bold; color: #00B906;              }
+			.colorcode_3 { font-weight: bold; color: #E8FF19;              }
+			.colorcode_4 { font-weight: bold; /*color: #170BDB;*/color:lightblue;   /* background-color: white;    opacity:0.5;  */               }
+			.colorcode_5 { font-weight: bold; color: #23C2C6;              }
+			.colorcode_6 { font-weight: bold; color: #E201DB;              }
+			.colorcode_7 { font-weight: bold; color: #FFFFFF;              }
+			.colorcode_8 { font-weight: bold; color: #0AFF95;              }
+			.colorcode_9 { font-weight: bold; color: #757575;              }
+			
+		</style>
+		
+		<script>
+			// whatever little shit code you need to test, u r welcome
+			
+		</script>
+	</head>
+	<body>
+		<center>
+			<div id="canvas_and_overlay">
+				<canvas id="playcanvas" width=900 height=600></canvas>
+				<canvas id="canvas" oncontextmenu="event.preventDefault()" width=900 height=600></canvas>
+				<!--<canvas id="babylon" width=900 height=600></canvas>-->
+				<div id="overlay">
+					<!--<h1>Welcome!</h1>-->
+
+					<div id="chat">
+						<div id="chatdiv">
+							<table id="chattable">
+							</table>
+						</div>
+						<!--<hr>-->
+						<input src="" id="chatinput"></input>
+						<!--<hr>-->
+					</div>
+					
+				</div>
+			</div>
+		</center>
+
+		<script>
+			
+			// i dont want any important globals in the .js files, put them here for nice overview...
+			// that also makes reload() possible
+			// just change some .js files and call reload() 
+			// each js function will be overwritten while the game keeps running, very nice for quick testing/prototyping
+			
+			url = "../libwebgame_assets/";
+			
+			whenReadyCallbacks = [];
+			
+			globals = {}
+			globals_pc = {} // for PlayCanvas... fixing prototypes doesnt work for PC yet, gotta figure out what they do exactly
+			
+			// input.js
+			// debugKeys = true
+			debugKeys = false;
+			
+			// downloads.js
+			downloads = [];
+			
+			NULL = 0;
+			
+			// ioq3_websocket.js
+			ws_url = "ws://" + window.location.hostname + ":8080";
+			ws_debug = false;
+			
+			// game.js			
+			console.error = console.log;
+			starttime = Date.now();
+			showQuake = false;
+			//$(document).ready(function() {
+			window.onload = (function() {
+				//$(document).bind("fullscreenchange", fullscreenchange);
+				body = document.getElementsByTagName("body")[0];
+			});
+			
+			// deepdreamers.js
+			//DeepDreamers.classes = [];
+			
+			// pc_fetch.js
+			// resolve the promise with cached asset.resource if its already loaded
+			// works around the limitation of PlayCanvas loadFromUrl API which only callbacks once
+			cached = {};
+			
+			// pc_maila_model.js
+			mailas = [];
+			
+			// pc_maila_skeleton.js
+			skeletons = [];
+			
+			// pc_idtech3.js
+			refents = {};
+			trmodels = {};
+			globalDisableCount = 0;
+			globalEnabledCount = 0;
+			
+			// pc_kungmesh.js
+			cache_kungmesh = {};
+			
+			
+		</script>
+		<script src="index.js"></script>
+	</body>
+</html>
