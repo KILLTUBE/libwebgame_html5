@@ -18,33 +18,84 @@ JSON.fetch = async function(url) {
 
 reload = async function() {
 	console.log("<reload>");
-	const filedates = await JSON.fetch("filedates.php");
-	const files = [];
-	for (const filedate of filedates) {
-		var name = filedate["name"];
-		var date = filedate["date"];
-		const script = Script.fetch(name + "?date=" + date);
-		files.push(script);
+
+	var urls = [];
+	urls.push("main.js");
+	urls.push("input.js");
+	urls.push("chat.js");
+	urls.push("download.js");
+	urls.push("emcc.js");
+	urls.push("ioq3.js");
+	urls.push("ioq3_websocket.js");
+	urls.push("game.js");
+	urls.push("TextLine.js");
+	urls.push("AnimatedHistoryText.js");
+	urls.push("repl.js");
+	urls.push("clipboard.js");
+	urls.push("file.js");
+	urls.push("deepdreamers.js");
+	urls.push("stuff_math.js");
+	urls.push("fetch.js");
+	urls.push("playcanvas/toji/util/game-shim.js");
+	urls.push("playcanvas/toji/util/gl-matrix-min.js");
+	urls.push("playcanvas/toji/util/stats.min.js");
+	urls.push("playcanvas/toji/util/binary-file.js");
+	urls.push("playcanvas/toji/util/gl-matrix-min.js");
+	urls.push("playcanvas/toji/q3bsp_worker.js");
+	urls.push("pc_gltf_new.js");
+	urls.push("pc_maila.js");
+	urls.push("pc_samba.js");
+	urls.push("pc_morphcube.js");
+	urls.push("pc_maila_model.js");
+	urls.push("pc_maila_skeleton.js");
+	urls.push("pc_maila_anim.js");
+	urls.push("pc_procedural_mesh.js");
+	urls.push("pc_lights.js");
+	urls.push("pc_hierarchy_lines.js");
+	urls.push("pc_fps_camera.js");
+	urls.push("pc_model.js");
+	urls.push("pc_skybox.js");
+	urls.push("pc_utils.js");
+	urls.push("pc_init.js");
+	urls.push("pc_idtech3.js");
+	urls.push("pc_idtech3_player.js");
+	urls.push("pc_bsp.js");
+	urls.push("pc_setup.js");
+	urls.push("pc_kungmesh.js");
+	urls.push("pc_game_materials.js");
+	urls.push("pc_fetch.js");
+	urls.push("stuff_time.js");
+	urls.push("stuff_html.js");
+	urls.push("stuff_random.js");
+	urls.push("libwebgame.js");
+	urls.push("socket.io.slim.js");
+	urls.push("socketio_stuff.js");
+
+	var files = []; // bunch of <script> promises
+
+	for (var url of urls) {
+		var file = Script.fetch(url);
+		files.push(file);
 	}
+	
 	await Promise.all(files);
+
 	console.log("</reload>");
 }
 
 load_scripts = async function() {
-	//await Script.fetch("glmw-browser.js");
-	//await glmw.init()
+	var prefix = window.location.origin; // == "http://127.0.0.1"
+
 	await Script.fetch("jquery-3.2.1.min.js");
 	await Script.fetch("jquery.fullscreen.js");
-	//await Script.fetch("playcanvas/playcanvas-1-6.js");
-	//await Script.fetch("playcanvas/playcanvas-1-7.js");
-	//await Script.fetch("playcanvas/playcanvas-1-8-1.js");
-	await Script.fetch("playcanvas/playcanvas-1-10-0.js");
-	await Script.fetch("playcanvas/playcanvas-anim.js");
-	//await Script.fetch("playcanvas/playcanvas-anim-extra.js"); // depends on playcanvas-anim.js, so cant load the extra file in mixed order atm
-	//await Script.fetch("playcanvas/playcanvas-anim.js");
-	//await Script.fetch("playcanvas/playcanvas-gltf.js");
-	await reload()
 
+	await Script.fetch(prefix + "/playcanvas-engine/build/output/playcanvas-latest.js");
+
+	await Script.fetch(prefix + "/playcanvas-gltf/src/playcanvas-anim.js");
+	await Script.fetch(prefix + "/playcanvas-gltf/src/playcanvas-gltf.js");
+	
+
+	await reload();
 }
 
 load_scripts().then(function() {
