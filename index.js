@@ -89,7 +89,7 @@ reload = async function() {
 	urls.push("repl.js");
 	urls.push("clipboard.js");
 	urls.push("file.js");
-	urls.push("deepdreamers.js");
+	urls.push("canvas.js");
 	urls.push("stuff_math.js");
 	urls.push("fetch.js");
 
