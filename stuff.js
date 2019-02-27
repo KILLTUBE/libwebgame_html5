@@ -1,3 +1,11 @@
+rand_int = function() {
+	return Math.floor(Math.random() * 10000000);
+}
+
+seconds = function() {
+	return Date.now() / 1000.0;
+}
+
 LookRotation = function(forward, up) {
 	forward = forward.normalize();
 

@@ -109,10 +109,8 @@ reload = async function() {
 	urls.push("pc_kungmesh.js");
 	urls.push("pc_game_materials.js");
 	urls.push("pc_fetch.js");
-	urls.push("stuff_time.js");
-	urls.push("stuff_html.js");
-	urls.push("stuff_random.js");
-	urls.push("socketio_stuff.js");
+	urls.push("stuff.js");
+	urls.push("socketio.js");
 	urls.push("q3config.js");
 
 	var files = []; // bunch of <script> promises

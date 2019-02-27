@@ -7,7 +7,6 @@ io_on_msg = function(msg) {
 	addChat(msg);
 }
 
-
 init_socket_io = function() {
 	socket = io.connect('http://cloud.killtube.org:3000', {resource: 'nodejs'});
 	socket.on("playerconnect", function(data) { on_playerconnect(data); });
