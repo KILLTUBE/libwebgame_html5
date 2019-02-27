@@ -7,7 +7,7 @@ printstrings_clear = function() {
 		printstrings.firstChild.remove();
 }
 
-callback_main = function() {
+after_main_called = function() {
 	fullwindow();
 	players_init();
 	

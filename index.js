@@ -136,7 +136,20 @@ reload = async function() {
 	console.log("</reload>");
 }
 
-load_scripts = async function() {
+// this needs custom emscripten code: https://github.com/KILLTUBE/libwebgame_html5/issues/5
+fetch_emscripten = function(url) {
+	// first setup our promise, which will be resolved when the emscripten libwebgame.js called `callback_main()`
+	var promise = new Promise(function(resolve, reject) {
+		callback_main = function() {
+			resolve();
+		}
+	});
+	// now load the actual emscripten libwebgame.js, we dont need to await this
+	Script.fetch(url);
+	return promise;
+}
+
+fetch_libwebgame = async function() {
 	var prefix = window.location.origin; // == "http://127.0.0.1"
 
 	await Script.fetch(prefix + "/libwebgame_vendorstuff/jquery-3.2.1.min.js");
@@ -152,6 +165,6 @@ load_scripts = async function() {
 
 	await reload();
 
-	await Script.fetch("libwebgame.js");
-
+	await fetch_emscripten("libwebgame.js");
+	after_main_called();
 }

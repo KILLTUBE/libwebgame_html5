@@ -27,17 +27,14 @@
 
 		<script>
 
-			window.onload = function() {
+			window.onload = async function() {
 				//$(document).bind("fullscreenchange", fullscreenchange);
 				body = document.getElementsByTagName("body")[0];
-
-				load_scripts().then(function() {
-					//main()
-
-					// pc_maila_anim.js
-					//init_pc_maila_anim()
-					init_socket_io();
-				})
+				await fetch_libwebgame();
+				//main()
+				// pc_maila_anim.js
+				//init_pc_maila_anim()
+				init_socket_io();
 			}
 			
 		</script>
