@@ -78,12 +78,14 @@ callback_AL_RegisterSound = function(sampleAddr) {
 
 callback_AL_StartSound = function(origin, entnum, entchannel, sfx) {
 	if (sfx == 0) {
-		if (debug_sound)
-		console.warn("Missing sound...");
+		if (debug_sound) {
+			console.warn("Missing sound...");
+		}
 		return;
 	}
-	if (debug_sound)
+	if (debug_sound) {
 		console.warn("AL_StartSound", arguments);
+	}
 	if (sfx in sfx2asset) {
 		var name = sfx2name[sfx];
 		var entity = new pc.Entity(name);

@@ -27,10 +27,6 @@ starttime = Date.now();
 showQuake = false;
 //$(document).ready(function() {
 
-
-// deepdreamers.js
-//DeepDreamers.classes = [];
-
 // pc_fetch.js
 // resolve the promise with cached asset.resource if its already loaded
 // works around the limitation of PlayCanvas loadFromUrl API which only callbacks once
@@ -68,7 +64,6 @@ reload = async function() {
 	console.log("<reload>");
 
 	var urls = [];
-	urls.push("main.js");
 	urls.push("input.js");
 	urls.push("chat.js");
 	urls.push("emcc.js");
@@ -79,9 +74,7 @@ reload = async function() {
 	urls.push("AnimatedHistoryText.js");
 	urls.push("repl.js");
 	urls.push("clipboard.js");
-	urls.push("file.js");
 	urls.push("canvas.js");
-	urls.push("stuff_math.js");
 	urls.push("fetch.js");
 
 	urls.push("toji_binaryfile.js");
