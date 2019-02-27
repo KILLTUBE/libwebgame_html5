@@ -52,25 +52,16 @@ globalEnabledCount = 0;
 cache_kungmesh = {};
 
 
-
-
-
-Script = function() {}
-Script.fetch = function(url) {
+fetch_script = function(url) {
 	return new Promise(function(resolve, reject) {
 		var script = document.createElement("script");
 		script.type = "text/javascript";
 		script.onload = function() {
 			resolve(script)
 		}
-		script.src = url/* + "?now=" + Date.now()*/;
-		document.head.appendChild(script)
-	})
-}
-
-JSON.fetch = async function(url) {
-	const request = await fetch(url);
-	return request.json();
+		script.src = url;
+		document.head.appendChild(script);
+	});
 }
 
 reload = async function() {
@@ -127,7 +118,7 @@ reload = async function() {
 	var files = []; // bunch of <script> promises
 
 	for (var url of urls) {
-		var file = Script.fetch(url);
+		var file = fetch_script(url);
 		files.push(file);
 	}
 	
@@ -145,22 +136,22 @@ fetch_emscripten = function(url) {
 		}
 	});
 	// now load the actual emscripten libwebgame.js, we dont need to await this
-	Script.fetch(url);
+	fetch_script(url);
 	return promise;
 }
 
 fetch_libwebgame = async function() {
 	var prefix = window.location.origin; // == "http://127.0.0.1"
 
-	await Script.fetch(prefix + "/libwebgame_vendorstuff/jquery-3.2.1.min.js");
-	await Script.fetch(prefix + "/libwebgame_vendorstuff/jquery.fullscreen.js");
-	await Script.fetch(prefix + "/libwebgame_vendorstuff/gl-matrix-min.js");
-	await Script.fetch(prefix + "/libwebgame_vendorstuff/socket.io.slim.js");
+	await fetch_script(prefix + "/libwebgame_vendorstuff/jquery-3.2.1.min.js");
+	await fetch_script(prefix + "/libwebgame_vendorstuff/jquery.fullscreen.js");
+	await fetch_script(prefix + "/libwebgame_vendorstuff/gl-matrix-min.js");
+	await fetch_script(prefix + "/libwebgame_vendorstuff/socket.io.slim.js");
 
-	await Script.fetch(prefix + "/playcanvas-engine/build/output/playcanvas-latest.js");
+	await fetch_script(prefix + "/playcanvas-engine/build/output/playcanvas-latest.js");
 
-	await Script.fetch(prefix + "/playcanvas-gltf/src/playcanvas-anim.js");
-	await Script.fetch(prefix + "/playcanvas-gltf/src/playcanvas-gltf.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/playcanvas-anim.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/playcanvas-gltf.js");
 	
 
 	await reload();
