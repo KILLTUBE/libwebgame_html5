@@ -80,7 +80,6 @@ reload = async function() {
 	urls.push("toji_binaryfile.js");
 	urls.push("toji_q3bsp_worker.js");
 
-	urls.push("pc_gltf_new.js");
 	urls.push("pc_maila.js");
 	urls.push("pc_samba.js");
 	urls.push("pc_morphcube.js");

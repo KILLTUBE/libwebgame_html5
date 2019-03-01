@@ -2,17 +2,16 @@
 
 // s1 = await spawn_samba()
 spawn_samba = async function() {
-	var entity = await GLTF.fetch(url + "gltf/SambaDancing/SambaDancing.gltf")
+	var entity = await fetch_gltf(url + "gltf/SambaDancing/SambaDancing.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.006;
 	entity.setLocalScale(scale, scale, scale)
 	return entity
 }
 
-
 // corset = await spawn_corset()
 spawn_corset = async function() {
-	var entity = await GLTF.fetch(url + "gltf/corset/Corset.gltf")
+	var entity = await fetch_gltf(url + "gltf/corset/Corset.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.8;
 	entity.setLocalScale(scale, scale, scale)
@@ -21,7 +20,7 @@ spawn_corset = async function() {
 
 // appletree = await spawn_appletree()
 spawn_appletree = async function() {
-	var entity = await GLTF.fetch(url + "gltf/AppleTree/AppleTree.gltf")
+	var entity = await fetch_gltf(url + "gltf/AppleTree/AppleTree.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.8;
 	entity.setLocalScale(scale, scale, scale)
@@ -30,7 +29,7 @@ spawn_appletree = async function() {
 
 // damagedhelmet = await spawn_damagedhelmet()
 spawn_damagedhelmet = async function() {
-	var entity = await GLTF.fetch(url + "gltf/DamagedHelmet/DamagedHelmet.gltf")
+	var entity = await fetch_gltf(url + "gltf/DamagedHelmet/DamagedHelmet.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.8;
 	entity.setLocalScale(scale, scale, scale)
@@ -39,7 +38,7 @@ spawn_damagedhelmet = async function() {
 
 // flighthelmet = await spawn_flighthelmet()
 spawn_flighthelmet = async function() {
-	var entity = await GLTF.fetch(url + "gltf/FlightHelmet/FlightHelmet.gltf")
+	var entity = await fetch_gltf(url + "gltf/FlightHelmet/FlightHelmet.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.8;
 	entity.setLocalScale(scale, scale, scale)
@@ -48,7 +47,7 @@ spawn_flighthelmet = async function() {
 
 // lantern = await spawn_lantern()
 spawn_lantern = async function() {
-	var entity = await GLTF.fetch(url + "gltf/Lantern/Lantern.gltf")
+	var entity = await fetch_gltf(url + "gltf/Lantern/Lantern.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.1;
 	entity.setLocalScale(scale, scale, scale)
@@ -57,7 +56,7 @@ spawn_lantern = async function() {
 
 // monkey = await spawn_monkey()
 spawn_monkey = async function() {
-	var entity = await GLTF.fetch(url + "gltf/monkey/monkey.gltf")
+	var entity = await fetch_gltf(url + "gltf/monkey/monkey.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.1;
 	entity.setLocalScale(scale, scale, scale)
@@ -66,7 +65,7 @@ spawn_monkey = async function() {
 
 // scifihelmet = await spawn_scifihelmet()
 spawn_scifihelmet = async function() {
-	var entity = await GLTF.fetch(url + "gltf/scifihelmet/scifihelmet.gltf")
+	var entity = await fetch_gltf(url + "gltf/scifihelmet/scifihelmet.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.1;
 	entity.setLocalScale(scale, scale, scale)
@@ -75,7 +74,7 @@ spawn_scifihelmet = async function() {
 
 // yeti = await spawn_yeti()
 spawn_yeti = async function() {
-	var entity = await GLTF.fetch(url + "gltf/yeti/Yeti_Idle.gltf")
+	var entity = await fetch_gltf(url + "gltf/yeti/Yeti_Idle.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.03;
 	entity.setLocalScale(scale, scale, scale)
@@ -84,7 +83,7 @@ spawn_yeti = async function() {
 
 // metalroughspheres = await spawn_metalroughspheres()
 spawn_metalroughspheres = async function() {
-	var entity = await GLTF.fetch(url + "gltf/MetalRoughSpheres/MetalRoughSpheres.gltf")
+	var entity = await fetch_gltf(url + "gltf/MetalRoughSpheres/MetalRoughSpheres.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale)
@@ -93,7 +92,7 @@ spawn_metalroughspheres = async function() {
 
 // suzanne = await spawn_suzanne()
 spawn_suzanne = async function() {
-	var entity = await GLTF.fetch(url + "gltf/Suzanne/Suzanne.gltf")
+	var entity = await fetch_gltf(url + "gltf/Suzanne/Suzanne.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale)
@@ -102,7 +101,7 @@ spawn_suzanne = async function() {
 
 // normaltangentmirrortest = await spawn_normaltangentmirrortest()
 spawn_normaltangentmirrortest = async function() {
-	var entity = await GLTF.fetch(url + "gltf/NormalTangentMirrorTest/NormalTangentMirrorTest.gltf")
+	var entity = await fetch_gltf(url + "gltf/NormalTangentMirrorTest/NormalTangentMirrorTest.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale)
@@ -111,7 +110,7 @@ spawn_normaltangentmirrortest = async function() {
 
 // normaltangenttest = await spawn_normaltangenttest()
 spawn_normaltangenttest = async function() {
-	var entity = await GLTF.fetch(url + "gltf/NormalTangentTest/NormalTangentTest.gltf")
+	var entity = await fetch_gltf(url + "gltf/NormalTangentTest/NormalTangentTest.gltf")
 	entity.setLocalPosition( player.pos() )
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale)
@@ -120,7 +119,7 @@ spawn_normaltangenttest = async function() {
 
 // gltf_maila = await spawn_maila()
 spawn_maila = async function() {
-	var entity = await GLTF.fetch(url + "gltf/maila/maila.gltf");
+	var entity = await fetch_gltf(url + "gltf/maila_full_fixed/maila_full_fixed.gltf");
 	//entity.setLocalPosition( player.pos() );
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale);
@@ -129,10 +128,10 @@ spawn_maila = async function() {
 
 // gltf_maila_hands = await spawn_maila_hands()
 spawn_maila_hands = async function() {
-	var entity = await GLTF.fetch(url + "gltf/maila/maila_hands_3.gltf", {
+	var entity = await fetch_gltf(url + "gltf/maila/maila_hands_3.gltf", {
 		layers: [5]
 	});
-	//var entity = await GLTF.fetch(url + "gltf/kudo/untitled.gltf");
+	//var entity = await fetch_gltf(url + "gltf/kudo/untitled.gltf");
 	entity.setLocalPosition( player.pos() );
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale);
@@ -141,7 +140,7 @@ spawn_maila_hands = async function() {
 
 // mp44 = await spawn_mp44()
 spawn_mp44 = async function() {
-	var entity = await GLTF.fetch(url + "gltf/mp44/mp44.gltf");
+	var entity = await fetch_gltf(url + "gltf/mp44/mp44.gltf");
 	entity.setLocalPosition( player.pos() );
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale);
@@ -150,7 +149,7 @@ spawn_mp44 = async function() {
 
 // door = await spawn_door()
 spawn_door = async function(addToScene) {
-	var entity = await GLTF.fetch(url + "gltf/door/door.gltf");
+	var entity = await fetch_gltf(url + "gltf/door/door.gltf");
 	entity.setLocalPosition( player.pos() );
 	var scale = 0.3;
 	entity.setLocalScale(scale, scale, scale);
@@ -164,7 +163,7 @@ spawn_door = async function(addToScene) {
 // crowbar = await spawn_gltf(url + "gltf/crowbar/crowbar.gltf", 0.05)
 spawn_gltf = async function(url, scale) {
 	url += "?now=" + Date.now() // prevent caching
-	var entity = await GLTF.fetch(url)
+	var entity = await fetch_gltf(url)
 	//entity.setLocalPosition( player.pos() )
 	//var scale = 1;
 	entity.setLocalScale(scale, scale, scale)
