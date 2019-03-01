@@ -1,6 +1,7 @@
+// not called anymore
 set_frame = function(entity, hModel, frame) {
-	//console.log(hModel, frame)
-	
+	console.log(hModel, frame)
+	return;
 	// maila2 -> maila1 (with model/animation)... make some nice component system or something at some point...
 	entity = entity.children[0]
 	
@@ -172,8 +173,8 @@ RE_AddRefEntityToScene = function(
 					} else if (modelname == "kungmodels/mp44.kung1") {
 						entity = kungmesh_spawn("mp44", layer_id, pc.CULLFACE_FRONT);
 					} else if (modelname == "rektman_lower") {
-						entity = maila_new()
-						maila_load_anim(entity.children[0])
+						entity = maila_new();
+						
 						// oh, this wasnt much of a win actually... if the matrices are dirty, they will simply be set later
 						// but what i could do is calculating the matrices in WebAssembly and mark-clear each graph of the hierarchy
 						//entity.syncHierarchy = function() {} // syncHierarchy is very slow and its not even needed, the animation is handling the hierarchy

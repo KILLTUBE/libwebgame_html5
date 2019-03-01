@@ -18,7 +18,7 @@ mallocUint8array = function(arr) {
 	
 memoryString = function(addr, len) {
 	const buf = new Uint8Array(len)
-    for (var i=0; i < len; i++)
+	for (var i=0; i < len; i++)
 		buf[i] = HEAPU8[addr+i]
 	return buf;
 }

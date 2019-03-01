@@ -89,9 +89,9 @@ function handleKeyForQuake(e, pressed) {
 		//	_Com_QueueEvent( 0, SE_CHAR, toQuakeCode(e), pressed, 0, NULL );
 		_Com_QueueEvent( 0, SE_KEY, toQuakeCode(e), pressed, 0, NULL );
 		return;
-    }
+	}
 	//var key = e.key.toLowerCase();
-	
+
 	// this worked for latin keyboards, but e.g. not russian ones
 	//var asciiCode = e.key.charCodeAt(0);
 	var asciiCode = e.keyCode;
@@ -101,7 +101,7 @@ function handleKeyForQuake(e, pressed) {
 	// so if shift ISNT pressed, we need to add 32 (to get 'w')
 	//if (e.shiftKey == false)
 	//	asciiCode += 32; // turn 'W' into 'w'
-	
+
 	if (e.keyCode >= 60 && e.keyCode <= 90) {
 		if (e.shiftKey == true)
 			asciiCode = e.keyCode
@@ -111,7 +111,7 @@ function handleKeyForQuake(e, pressed) {
 	} else {
 		asciiCode = e.key.charCodeAt(0)
 	}
-	
+
 	if (pressed)
 		_Com_QueueEvent( 0, SE_CHAR, asciiCode, pressed, 0, NULL );
 	_Com_QueueEvent( 0, SE_KEY, asciiCode32, pressed, 0, NULL );
@@ -149,28 +149,14 @@ on_key_down = function(e_) {
 	// allow ctrl+v to trigger document.onpaste, so we have access to clipboard text
 	const isCtrl = e.keyCode == 17;
 	const isV = e_.key == "v";
-	const allowDefault = imgui_show && (isCtrl || isV);
+	const allowDefault = isCtrl || isV;
 	
 	if ( ! allowDefault)
 		e_.preventDefault();
 	
 	if (debugKeys)
 		console.log("on_key_down: ", e_, "istext=", istext(e));
-	
-	//if (e.key == "F2") {
-	//	imgui_show = !imgui_show;
-	//	if (imgui_show) {			
-	//		//canvas.style.display = ""
-	//		document.exitPointerLock();
-	//	} else {
-	//		//canvas.style.display = "none"
-	//		canvas.requestPointerLock();
-	//	}
-	//}
-	
 
-	
-	
 	q3_on_key_down(e_);
 
 }
@@ -332,7 +318,6 @@ on_mouse_up = function(e) {
 qtrue = 1;
 qfalse = 0;
 lastWheel = 0;
-imguiWheelDelta = 1;
 
 q3_on_mouse_wheel = function(e) {
 	if (e.wheelDelta > 0) {

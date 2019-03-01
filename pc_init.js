@@ -71,24 +71,20 @@ loadPlayCanvas = function() {
 }
 
 main_playcanvas = async function() {
-	init_fps_camera()
-	skeletons_init()
-	init_idtech3()
-	loadPlayCanvas()
-	//load_map("mp_atcs")
-	//load_map("mp_toujane")
+	init_fps_camera();
+	init_idtech3();
+	loadPlayCanvas();
+
 	//sky_on()
-	sky_greenhouse()
-	//playbot = Playbot()
-	
+	sky_greenhouse();
 	_q3_main();
 	q3config();
 	//Cmd_ExecuteString("connect :");
 	showQuake = true;
-	imgui_show = false;
-	await maila_init();
+
 	//await devmap("atcs")
 	//await devmap("mp_beginning_quake3")
+	//await devmap("mp_toujane")
 	await devmap("mp_surf_utopia");
 	//await devmap("haus");
 	
@@ -108,9 +104,9 @@ main_playcanvas = async function() {
 	
 	//gltf_maila_hands.children[0].children[0].model.layers = [weaponlayer.id]; // rip nice api design
 	//gltf_maila_hands.reparent(entity_cam_weapon);
-	Cmd_ExecuteString("cg_gunx -100"); // hide atm
-	Cmd_ExecuteString("cg_guny -2");
-	Cmd_ExecuteString("cg_gunz -2");
+	//Cmd_ExecuteString("cg_gunx -100"); // hide atm
+	//Cmd_ExecuteString("cg_guny -2");
+	//Cmd_ExecuteString("cg_gunz -2");
 	
 	//await devmap("mp_toujane")
 	if (ws.readyState == ws.OPEN)

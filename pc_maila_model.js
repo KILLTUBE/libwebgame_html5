@@ -35,41 +35,19 @@ maila.model.model.meshInstances.map((v) => v.node.name)
 */
 
 maila_new = function() {
-	var maila = new pc.Entity("maila")
-	var maila2 = new pc.Entity("maila2")
-	//maila.setLocalPosition(player.pos())
-	maila.addComponent("model")
-	maila.model.model = maila_model.clone()
-	//maila.model.material = material_maila_body
-	
+	var maila = new pc.Entity("maila#" + mailas.length);
 
-	maila.model.model.meshInstances.forEach((v)=>v.visible = false) // disable all meshInstances
-	maila.model.model.meshInstances[1].material = red // hair
-	maila.model.model.meshInstances[1].visible = true
-	maila.model.model.meshInstances[1].material = red
-	maila.model.model.meshInstances[17].visible = true // Maila_BodyComplete
-	maila.model.model.meshInstances[17].material = material_maila_body	
+	// just add maila when its loaded, so this function isnt waiting on anyhting
+	spawn_maila().then(function(model) {
+		this.addChild(model);
+		
+		model.setLocalEulerAngles(90, 0, 90);
+		model.setLocalPosition(0,0,-0.25);
+		model.setLocalScale(0.4,0.4,0.4);
+	}.bind(maila));
 	
-	//maila.model.model.graph.setLocalScale(0.4,0.4,0.4)
-	//maila.model.model.graph.setLocalPosition(0,-0.22,0)
-
-	
-/*
-maila.children[0].setLocalPosition(0,0,0)
-maila.children[0].setLocalEulerAngles(90, 0, 90)
-maila.animation.currentTime = 2;
-*/
-	maila2.addChild(maila);
-	//app.root.addChild(maila2);
-	
-	maila.children[0].setLocalEulerAngles(90, 0, 90)
-	maila.children[0].setLocalPosition(0,0,-0.25)
-	maila.children[0].setLocalScale(0.4,0.4,0.4)
-	
-	mailas.push( maila2 )
-	
-	
-	return maila2;
+	mailas.push( maila );
+	return maila;
 }
 
 maila_debug_skeleton = function() {
@@ -81,49 +59,4 @@ maila_debug_skeleton = function() {
 			console.log(ex);
 		}	
 	})
-}
-
-//postion = maila_model.graph.children[10]
-//pelvis = postion.children[0].children[0]
-//spine1 = pelvis.children[0].children[0]
-
-maila_load_anim = async function(maila) {
-	maila_animation = await pc.Animation.fetch(url + "pc_maila/Maila_Model_Animation.json")
-	maila.addComponent("animation", {
-		assets: [maila_animation.asset],
-		speed: 1.0,
-		activate: true,
-		loop: false
-	});
-	maila.animation.currentTime = 2
-	maila.animation.playing = false
-}
-
-create_material_maila_body = function() {
-	var material = new pc.StandardMaterial()
-	material.name = "maila_body"
-	Promise.all([
-		pc.Texture.fetch(url + "pc_maila/Maila_Body[Albedo]V5.jpg"),
-		pc.Texture.fetch(url + "pc_maila/Maila_Body[Normal].jpg"),
-		pc.Texture.fetch(url + "pc_maila/Maila_Body[Specular].jpg"),
-		pc.Texture.fetch(url + "pc_maila/Maila_Body[AO].jpg")
-	]).then(function(results) {
-		var [albedo, normal, spec, ao] = results
-		material.diffuseMap  = albedo
-		material.normalMap   = normal
-		material.specularMap = spec
-		material.aoMap       = ao
-		material.update()
-	})
-	return material
-}
-
-maila_init = async function() {
-	
-	material_maila_body = create_material_maila_body();
-	maila_model = await pc.Model.fetch(url + "pc_maila/Maila_Model.json")
-	maila = maila_new()//.children[0]
-	//maila_load_anim()
-	
-	
 }
