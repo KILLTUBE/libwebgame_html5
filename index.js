@@ -91,7 +91,6 @@ reload = async function() {
 	urls.push("pc_lights.js");
 	urls.push("pc_hierarchy_lines.js");
 	urls.push("pc_fps_camera.js");
-	urls.push("pc_model.js");
 	urls.push("pc_skybox.js");
 	urls.push("pc_utils.js");
 	urls.push("pc_init.js");
