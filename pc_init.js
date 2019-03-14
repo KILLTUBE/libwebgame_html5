@@ -125,7 +125,12 @@ main_playcanvas = async function() {
 		_Com_Frame()
 		_Com_Frame()
 
-		
+		// tmp vectors for stuff like:
+		// players[1].viewangles = vec_a.set(0,45,0);
+		vec_a = new vec3_t();
+		vec_b = new vec3_t();
+		vec_c = new vec3_t();
+
 		// update all data views once a map is lodaed
 		for (var player of players) {
 			player.assignDataViews();

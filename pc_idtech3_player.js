@@ -9,7 +9,8 @@ Player.prototype.assignDataViews = function() {
 
 	
 	this.velocity = vec3_t.wrap(_jl_player_get_velocity(this.id));
-	this.viewangles = vec3_t.wrap(_jl_player_get_viewangles(this.id));
+	//this.viewangles = vec3_t.wrap(_jl_player_get_viewangles(this.id));
+	this.tmp_viewangles = new vec3_t(0, 0, 0);
 }
 
 Player.prototype.gent = function() {
@@ -25,12 +26,16 @@ Player.prototype.walk = function(state) {
 	_player_forwardmove(this.gent(), state);
 }
 
-//Object.defineProperty(Player.prototype, "velocity", {
-//	get: function() {
-//
-//		return _player_get_deaths(this.id);
-//	}
-//});
+Object.defineProperty(Player.prototype, "viewangles", {
+	get: function() {
+		this.tmp_viewangles.ptr = _jl_player_get_viewangles(this.id);
+		this.tmp_viewangles.assignDataView();
+		return this.tmp_viewangles;
+	},
+	set: function(value) {
+		return _jl_player_set_viewangles(this.id, value.ptr);
+	}
+});
 
 Object.defineProperty(Player.prototype, "deaths", {
 	get: function() {

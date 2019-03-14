@@ -1,7 +1,7 @@
 
 vec3_t = function(x, y, z) {
 	this.ptr = _malloc(3 * 4) // 3 * sizeof(float)
-	this.data = new Float32Array(Module.buffer, this.ptr, 3);
+	this.assignDataView();
 	if (arguments.length == 3) {
 		this.data[0] = x;
 		this.data[1] = y;
@@ -18,6 +18,24 @@ vec3_t.wrap = function(ptr) {
 	tmp.ptr = ptr;
 	tmp.data = new Float32Array(Module.buffer, tmp.ptr, 3);
 	return tmp;
+}
+
+vec3_t.prototype.assignDataView = function() {
+	this.data = new Float32Array(Module.buffer, this.ptr, 3);
+}
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @returns {vec3_t} chaining
+ */
+
+vec3_t.prototype.set = function(x, y, z) {
+	this.data[0] = x;
+	this.data[1] = y;
+	this.data[2] = z;
+	return this;
 }
 
 Object.defineProperty(vec3_t.prototype, "x", {
