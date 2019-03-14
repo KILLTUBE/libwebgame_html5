@@ -176,3 +176,15 @@ clone_gltf = function(entity) {
     return entity_clone;
 }
 
+/**
+ * @param {number} ms
+ * @example
+ * await wait(1000); console.log("done");
+ */
+
+wait = function(ms) {
+	return new Promise(function(resolve, reject) {
+		setTimeout(resolve, ms);
+	});
+}
+

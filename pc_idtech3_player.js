@@ -12,6 +12,19 @@ Player.prototype.assignDataViews = function() {
 	this.viewangles = vec3_t.wrap(_jl_player_get_viewangles(this.id));
 }
 
+Player.prototype.gent = function() {
+	return _jl_g_entities() + this.id * _jl_g_entities_sizeof();
+}
+/**
+ * @param {boolean} state
+ * @example
+ * players[1].walk(true); await wait(100); players[1].walk(false);
+ */
+
+Player.prototype.walk = function(state) {
+	_player_forwardmove(this.gent(), state);
+}
+
 //Object.defineProperty(Player.prototype, "velocity", {
 //	get: function() {
 //
@@ -21,46 +34,46 @@ Player.prototype.assignDataViews = function() {
 
 Object.defineProperty(Player.prototype, "deaths", {
 	get: function() {
-		return _player_get_deaths(this.id);
+		return _player_get_deaths(this.gent());
 	},
 	set: function(value) {
-		return _player_set_deaths(this.id, value);
+		return _player_set_deaths(this.gent(), value);
 	}
 });
 
 Object.defineProperty(Player.prototype, "health", {
 	get: function() {
-		return _player_get_health(this.id);
+		return _player_get_health(this.gent());
 	},
 	set: function(value) {
-		return _player_set_health(this.id, value);
+		return _player_set_health(this.gent(), value);
 	}
 });
 
 Object.defineProperty(Player.prototype, "maxhealth", {
 	get: function() {
-		return _player_get_maxhealth(this.id);
+		return _player_get_maxhealth(this.gent());
 	},
 	set: function(value) {
-		return _player_set_maxhealth(this.id, value);
+		return _player_set_maxhealth(this.gent(), value);
 	}
 });
 
 Object.defineProperty(Player.prototype, "score", {
 	get: function() {
-		return _player_get_score(this.id);
+		return _player_get_score(this.gent());
 	},
 	set: function(value) {
-		return _player_set_score(this.id, value);
+		return _player_set_score(this.gent(), value);
 	}
 });
 
 Object.defineProperty(Player.prototype, "team", {
 	get: function() {
-		return _player_get_team(this.id);
+		return _player_get_team(this.gent());
 	},
 	set: function(value) {
-		return _player_set_team(this.id, value);
+		return _player_set_team(this.gent(), value);
 	}
 });
 
