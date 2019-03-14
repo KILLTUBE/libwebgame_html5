@@ -1,29 +1,51 @@
 
 vec3_t = function(x, y, z) {
-	this.pointer = _malloc(3 * 4) // 3 * sizeof(float)
-	this.view = new Float32Array(Module.buffer, this.pointer, 3);
+	this.ptr = _malloc(3 * 4) // 3 * sizeof(float)
+	this.data = new Float32Array(Module.buffer, this.ptr, 3);
 	if (arguments.length == 3) {
-		this.view[0] = x;
-		this.view[1] = y;
-		this.view[2] = z;
+		this.data[0] = x;
+		this.data[1] = y;
+		this.data[2] = z;
 	} else {
-		this.view[0] = 0.0;
-		this.view[1] = 0.0;
-		this.view[2] = 0.0;
+		this.data[0] = 0.0;
+		this.data[1] = 0.0;
+		this.data[2] = 0.0;
 	}
 }
 
+vec3_t.wrap = function(ptr) {
+	var tmp = Object.create(vec3_t.prototype);
+	tmp.ptr = ptr;
+	tmp.data = new Float32Array(Module.buffer, tmp.ptr, 3);
+	return tmp;
+}
+
 Object.defineProperty(vec3_t.prototype, "x", {
-	get: function(   ) { return this.view[0];            },
-	set: function(tmp) { this.view[0] = tmp; return tmp; }
+	get: function(   ) {
+		return this.data[0];
+	},
+	set: function(tmp) {
+		this.data[0] = tmp;
+		return tmp;
+	}
 });
 
 Object.defineProperty(vec3_t.prototype, "y", {
-	get: function(   ) { return this.view[1];            },
-	set: function(tmp) { this.view[1] = tmp; return tmp; }
+	get: function(   ) {
+		return this.data[1];
+	},
+	set: function(tmp) {
+		this.data[1] = tmp;
+		return tmp;
+	}
 });
 
 Object.defineProperty(vec3_t.prototype, "z", {
-	get: function(   ) { return this.view[2];            },
-	set: function(tmp) { this.view[2] = tmp; return tmp; }
+	get: function() {
+		return this.data[2];
+	},
+	set: function(tmp) {
+		this.data[2] = tmp;
+		return tmp;
+	}
 });
