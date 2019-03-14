@@ -11,6 +11,7 @@ Player.prototype.assignDataViews = function() {
 	this.velocity = vec3_t.wrap(_jl_player_get_velocity(this.id));
 	//this.viewangles = vec3_t.wrap(_jl_player_get_viewangles(this.id));
 	this.tmp_viewangles = new vec3_t(0, 0, 0);
+	this.tmp_position = new vec3_t(0, 0, 0);
 }
 
 Player.prototype.gent = function() {
@@ -25,6 +26,23 @@ Player.prototype.gent = function() {
 Player.prototype.walk = function(state) {
 	_player_forwardmove(this.gent(), state);
 }
+
+Player.prototype.moveTo = function(state) {
+	// 
+}
+
+// players[0].position = vec_a.set(-504, -16, 1000)
+
+Object.defineProperty(Player.prototype, "position", {
+	get: function() {
+		this.tmp_position.ptr = _entity_get_position(this.id);
+		this.tmp_position.assignDataView();
+		return this.tmp_position;
+	},
+	set: function(value) {
+		return _jl_entity_set_pos(this.id, value.ptr);
+	}
+});
 
 Object.defineProperty(Player.prototype, "viewangles", {
 	get: function() {
