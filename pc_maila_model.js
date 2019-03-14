@@ -35,19 +35,29 @@ maila.model.model.meshInstances.map((v) => v.node.name)
 */
 
 maila_new = function() {
-	var maila = new pc.Entity("maila#" + mailas.length);
-
-	// just add maila when its loaded, so this function isnt waiting on anyhting
-	spawn_maila().then(function(model) {
-		this.addChild(model);
-		
-		model.setLocalEulerAngles(90, 0, 90);
-		model.setLocalPosition(0,0,-0.25);
-		model.setLocalScale(0.4,0.4,0.4);
-	}.bind(maila));
+	//var maila = new pc.Entity("maila#" + mailas.length);
+	//// just add maila when its loaded, so this function isnt waiting on anyhting
+	//spawn_maila().then(function(model) {
+	//	this.addChild(model);
+	//	
+	//	model.setLocalEulerAngles(90, 0, 90);
+	//	model.setLocalPosition(0,0,-0.25);
+	//	model.setLocalScale(0.4,0.4,0.4);
+	//}.bind(maila));
 	
+	
+
+	var maila = clone_gltf(original_maila);
 	mailas.push( maila );
-	return maila;
+
+	var maila_parent = new pc.Entity("maila#" + mailas.length);
+	
+	maila_parent.addChild(maila);
+	maila.setLocalEulerAngles(90, 0, 90);
+	maila.setLocalPosition(0,0,-0.25);
+	maila.setLocalScale(0.4,0.4,0.4);
+
+	return maila_parent;
 }
 
 maila_debug_skeleton = function() {

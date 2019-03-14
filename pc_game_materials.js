@@ -348,6 +348,7 @@ shaderName_to_material = function(shaderName) {
 	}
 	// always return a valid url, just so it has some diffuse map at least
 	if (shader_url == "") {
+		console.log("pc_game_materials.js: missing", shaderName);
 		return material_sandyground1();
 		shader_url = url + "/tremulous_atcs/textures/atcs/rust_2.png";
 	}
@@ -359,7 +360,8 @@ shaderName_to_material = function(shaderName) {
 			material.diffuseMap = texture;
 			material.update();
 		})
-		material.specular.set(0.4, 0.4, 0.4); // looks nice when everything is somewhat specular
+		
+		//material.specular.set(0.4, 0.4, 0.4); // looks nice when everything is somewhat specular
 	}
 	
 	

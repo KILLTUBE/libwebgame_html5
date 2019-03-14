@@ -104,7 +104,6 @@ printstrings_clear = function() {
 
 after_main_called = function() {
 	fullwindow();
-	players_init();
 	
 	windowmode = WindowMode_Small;
 	starttime = Date.now();
@@ -133,5 +132,47 @@ after_main_called = function() {
 	//set_input_events(canvas);
 	set_input_events(document); // so F1 doesnt open Help, F5 doesnt reload page etc.
 	//fitcanvas()
+	players_init();
+}
+
+/**
+ * @param {pc.Entity} entity
+ * @summary
+ * clones a pc.Entity including the GLTF animation component
+ */
+
+clone_gltf = function(entity) {
+    // 1) clone entity
+    var entity_clone = entity.clone();
+    for (var i=0; i<entity.model.meshInstances.length; i++) {
+        // visibility of meshInstances is not cloned, update manually:
+        entity_clone.model.meshInstances[i].visible = entity.model.meshInstances[i].visible;
+    }
+    // 2) clone existing AnimationComponent, otherwise we are done
+    if (!entity.animComponent)
+        return entity_clone;
+    // 3) assign new AnimationComponent
+    entity_clone.animComponent = new AnimationComponent();
+    // 4) clone animation clips
+    var numClips = entity.animComponent.animClips.length;
+    var animationClips = Array(numClips);
+    for (var i=0; i<numClips; i++)
+        animationClips[i] = entity.animComponent.animClips[i].clone();
+    // 5) assign entity_clone to each clip->curve->target
+    for (var i = 0; i < animationClips.length; i++) {
+        var clip = animationClips[i];
+        for(var c = 0; c < clip.animCurves.length; c++) {
+            var animTarget = clip.animTargets[c];
+            if (animTarget.targetNode === "model")
+                animTarget.targetNode = entity_clone;
+        }
+    }
+    // 6) Add all animations to the model's animation component
+    for (i = 0; i < animationClips.length; i++) {
+        var clip = animationClips[i];
+        clip.transferToRoot(entity_clone);
+        entity_clone.animComponent.addClip(clip);
+    }
+    return entity_clone;
 }
 

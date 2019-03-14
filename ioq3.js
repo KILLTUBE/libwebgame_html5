@@ -26,7 +26,7 @@ map = async function(mapname) {
 
 devmap = async function(mapname) {
 	await MagicFile.fetch(url + `libwebgame/maps/${mapname}.bsp`, `./maps/${mapname}.bsp`)
-	Cmd_ExecuteString("devmap " + mapname)
+	Cmd_ExecuteString("devmap " + mapname);
 }
 
 testbots = function() {

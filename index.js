@@ -99,6 +99,10 @@ reload = async function() {
 	urls.push("pc_fetch.js");
 	urls.push("stuff.js");
 	urls.push("socketio.js");
+
+	// JS bindings to idtech3
+	urls.push("vec3_t.js");
+
 	urls.push("q3config.js");
 
 	var files = []; // bunch of <script> promises
@@ -136,6 +140,14 @@ fetch_libwebgame = async function() {
 
 	await fetch_script(prefix + "/playcanvas-engine/build/output/playcanvas-latest.js");
 
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationClip.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationClipSnapshot.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationComponent.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationCurve.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationEvent.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationKeyable.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationSession.js");
+	await fetch_script(prefix + "/playcanvas-gltf/src/AnimationTarget.js");
 	await fetch_script(prefix + "/playcanvas-gltf/src/playcanvas-anim.js");
 	await fetch_script(prefix + "/playcanvas-gltf/src/playcanvas-gltf.js");
 	

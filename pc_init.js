@@ -82,12 +82,17 @@ main_playcanvas = async function() {
 	//Cmd_ExecuteString("connect :");
 	showQuake = true;
 
+	original_maila = await spawn_maila();
+	console.log("maila loaded");
+
 	//await devmap("atcs")
 	//await devmap("mp_beginning_quake3")
 	//await devmap("mp_toujane")
-	await devmap("mp_surf_utopia");
+	await devmap("city");
 	//await devmap("haus");
 	
+
+
 	gltf_maila_hands = await spawn_maila_hands();
 	gltf_maila_hands.animComponent.playSubstring("idle");
 	//gltf_maila_hands.animComponent.animClips.map((clip)=>clip.name)
@@ -112,6 +117,20 @@ main_playcanvas = async function() {
 	if (ws.readyState == ws.OPEN)
 		Cmd_ExecuteString("connect :");
 	if (true) {
+
+		// run bunch of frames to init stuff
+		_Com_Frame()
+		_Com_Frame()
+		_Com_Frame()
+		_Com_Frame()
+		_Com_Frame()
+
+		
+		// update all data views once a map is lodaed
+		for (var player of players) {
+			player.assignDataViews();
+		}
+
 		app.on("postrender", function() {
 			mainloop();
 		});
