@@ -57,8 +57,10 @@ fetch_cached_arraybuffer = async function(url) {
 // await MagicFile.fetch(url + "libwebgame/maps/atcs.bsp", "./maps/atcs.bsp")
 MagicFile.fetch = async function(url, filename_internally) {
 	var arraybuffer = await fetch_cached_arraybuffer(url);
-	var uint8array  = new Uint8Array(arraybuffer);
-	var u = uint8array;
+	if (typeof arraybuffer === "undefined") {
+		debugger;
+	}
+	var u  = new Uint8Array(arraybuffer);
 	var mem = 0;
 	
 	// write the file byte by byte into the allocated memory... todo: check if there is a faster way
@@ -67,11 +69,9 @@ MagicFile.fetch = async function(url, filename_internally) {
 		HEAP8[mem + i] = u[i];
 	HEAP8[mem + u.length] = 0; // terminate string
 	
-	var ready = true;
-	var buffer = u;
 	var c_buffer = mem;
 	var c_buffersize = u.length;
 	var c_filename = alloc_string(filename_internally);
 	// register the file for our fileapi.cpp system
-	_file_loaded(c_filename, c_buffer, c_buffersize)
+	_file_loaded(c_filename, c_buffer, c_buffersize);
 }

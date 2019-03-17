@@ -203,12 +203,12 @@ RE_AddRefEntityToScene = function(
 					oneframers.addChild(entity);
 			}
 			entity.usageCount = 1;
-			//if (modelname == "rektman_lower") {
-			//	//console.log("modelname", modelname)
-			//	//gotEnt = entity;
-			//	//entity = mailas[1]
-			//	set_frame(entity, hModel, frame)
-			//}
+			if (modelname == "rektman_lower") {
+				//console.log("modelname", modelname)
+				//gotEnt = entity;
+				//entity = mailas[1]
+				set_frame(entity, hModel, frame);
+			}
 			// dont set the position for fps hands/weapons, they are supposed to be at 0,0,0 with identity rotation
 			if (entity.depthhack) {
 				entity.setPosition( _viewpos_x()/100,_viewpos_z()/100,_viewpos_y()/-100);
@@ -242,7 +242,7 @@ RE_AddRefEntityToScene = function(
 
 RE_RegisterModel_callback = function(modindex, modname) {
 	//console.log("RE_RegisterModel", arguments)
-	trmodels[modindex] = Pointer_stringify(modname);
+	trmodels[modindex] = UTF8ToString(modname, 256);
 }
 
 RE_BeginFrame_callback = function(cg_fov, fov_x, fov_y) {
@@ -301,7 +301,7 @@ CM_LoadMap_async = async function(nameptr, clientload, checksum) {
 	loadmap_clientload = clientload;
 	loadmap_checksum = checksum;
 	console.log("nameptr", nameptr, "clientload", clientload, "checksum", checksum)
-	var mappath = Pointer_stringify(nameptr); // will be something like "maps/mp_toujane.bsp"
+	var mappath = UTF8ToString(nameptr, 256); // will be something like "maps/mp_toujane.bsp"
 	var posSlash = mappath.indexOf("/");
 	var posPoint = mappath.indexOf(".");
 	var mapname = mappath.substring(posSlash + 1, posPoint);
