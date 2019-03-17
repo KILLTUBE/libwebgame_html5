@@ -27,15 +27,25 @@ Player.prototype.walk = function(state) {
 	_player_forwardmove(this.gent(), state);
 }
 
-Player.prototype.moveTo = function(state) {
-	// 
+// players[1].moveTo(players[0].position)
+
+Player.prototype.moveTo = async function(pos) {
+	// this.facePosition(pos)
+	vec_a.sub2(pos, this.position) // vec_a = pos - this.position;
+	_vectoangles(vec_a.ptr, vec_b.ptr); // save result in vec_b
+	this.viewangles = vec_b;
+
+	// this.walkTo(pos)
+	this.walk(true);
+	await wait(1000); // todo: proper walk speed calculation based on distance
+	this.walk(false);
 }
 
 // players[0].position = vec_a.set(-504, -16, 1000)
 
 Object.defineProperty(Player.prototype, "position", {
 	get: function() {
-		this.tmp_position.ptr = _entity_get_position(this.id);
+		this.tmp_position.ptr = _jl_entity_get_pos(this.id);
 		this.tmp_position.assignDataView();
 		return this.tmp_position;
 	},

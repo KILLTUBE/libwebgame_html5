@@ -125,6 +125,8 @@ main_playcanvas = async function() {
 		_Com_Frame()
 		_Com_Frame()
 
+		players_init();
+		
 		// tmp vectors for stuff like:
 		// players[1].viewangles = vec_a.set(0,45,0);
 		vec_a = new vec3_t();

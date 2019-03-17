@@ -38,6 +38,19 @@ vec3_t.prototype.set = function(x, y, z) {
 	return this;
 }
 
+/**
+ * @param {vec3_t} lhs
+ * @param {vec3_t} rhs
+ * @returns {vec3_t} chaining
+ */
+
+vec3_t.prototype.sub2 = function(lhs, rhs) {
+	this.data[0] = lhs.data[0] - rhs.data[0];
+	this.data[1] = lhs.data[1] - rhs.data[1];
+	this.data[2] = lhs.data[2] - rhs.data[2];
+	return this;
+}
+
 Object.defineProperty(vec3_t.prototype, "x", {
 	get: function(   ) {
 		return this.data[0];

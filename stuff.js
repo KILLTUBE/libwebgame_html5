@@ -132,7 +132,6 @@ after_main_called = function() {
 	//set_input_events(canvas);
 	set_input_events(document); // so F1 doesnt open Help, F5 doesnt reload page etc.
 	//fitcanvas()
-	players_init();
 }
 
 /**
