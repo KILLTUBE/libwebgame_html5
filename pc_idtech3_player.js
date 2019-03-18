@@ -132,6 +132,25 @@ Player.prototype.playSound = function(path) {
 	_free(str);
 }
 
+Player.prototype.print = function() {
+	var msg = "print \"";
+	for (var arg of arguments)
+		msg += arg + " ";
+	msg += "\"";
+	var strptr = alloc_string(msg);
+	_jl_SV_SendServerCommand(0, strptr);
+	_free(strptr);
+}
+
+Player.prototype.printBold = function() {
+	var msg = "cp \"";
+	for (var arg of arguments)
+		msg += arg + " ";
+	msg += "\"";
+	var strptr = alloc_string(msg);
+	_jl_SV_SendServerCommand(0, strptr);
+	_free(strptr);
+}
 
 //Object.defineProperty(Player.prototype, 'pos2', {
 //	get: function() {
