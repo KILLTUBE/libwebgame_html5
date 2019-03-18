@@ -83,6 +83,8 @@ main_playcanvas = async function() {
 	showQuake = true;
 
 	original_maila = await spawn_maila();
+	for (var clip of original_maila.animComponent.animClips)
+		clip.loop = true;
 	console.log("maila loaded");
 
 	//await devmap("atcs")

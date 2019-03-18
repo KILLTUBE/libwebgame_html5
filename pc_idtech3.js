@@ -1,3 +1,6 @@
+
+
+
 // not called anymore
 set_frame = function(oneframer, hModel, animation) {
 	//console.log(hModel, animation);
@@ -6,23 +9,34 @@ set_frame = function(oneframer, hModel, animation) {
 	// 
 	var entity = oneframer.children[0];
 	
+	// dont play same animation multiple times
+	if (oneframer.lastAnimation == animation)
+		return;
+
+	oneframer.lastAnimation = animation;
+
 	// rektman_lower
 	if (hModel == 39) {
+		var newClipName = "";
 		switch (animation) {
 			case 23:
-				entity.animComponent.playClip("idle");
+				newClipName = "idle";
 				break;
 			case 16:
-				entity.animComponent.playClip("walk");
+				newClipName = "walk";
 				break;
 			case 19:
-				entity.animComponent.playClip("jump");
+				newClipName = "jump";
 				break;
 			case 20:
-				//entity.animComponent.playClip("land");
+				//newClipName = "land";
 				break;
 			default:
 				console.log("unknown animation:", animation);
+		}
+		if (newClipName != "") {
+			//console.log("play ", newClipName);
+			entity.animComponent.crossFadeToClip(newClipName, 1);
 		}
 		return;
 	}
