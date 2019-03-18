@@ -1,54 +1,30 @@
 // not called anymore
-set_frame = function(entity, hModel, frame) {
-	console.log(hModel, frame)
-	return;
+set_frame = function(oneframer, hModel, animation) {
+	//console.log(hModel, animation);
+	
 	// maila2 -> maila1 (with model/animation)... make some nice component system or something at some point...
-	entity = entity.children[0]
+	// 
+	var entity = oneframer.children[0];
 	
 	// rektman_lower
-	if (hModel == 33) {
-		
-		//rektman_lower  = frame;
-		
-		if (frame >= 166 && frame <= 167) {
-			subanim = subanims.subanims[0] // idle
-		} else if (frame >= 110 && frame <= 121) {
-			subanim = subanims.subanims[3] // run
-		} else if (frame == 142) {
-			//subanim = subanims.subanims[10] // jump
-			// jump anim looks so fucked, just keep running atm lol
-			subanim = subanims.subanims[3] // run
-		} else if (frame == 151) {
-			// TORSO_STAND
-		} else if (frame == 141) {
-			// LEGS_JUMP
-		} else if (frame >= 131 && frame <= 135) {
-			// swim
-		} else if (frame >= 157 && frame <= 164) {
-			// backflip jump
-		} else if (frame >= 122 && frame <= 125) {
-			// legs_back running backwards
-		} else if (frame >= 90 && frame <= 91) {
-			// LEGS_WALKCR
-		} else if (frame == 176) {
-			// LEGS_IDLECR
-		} else if (frame == 98) {
-			// legs_backwalk, but no clue what triggers this
-			
-		} else if (frame == 0) {
-			// its loop==false animation, so reset time to play from begin to end once
-			// but only reset time very first frame, otherwise the animation wont play
-			if (subanim != subanims.subanims[9])
-				animStart = seconds()
-			subanim = subanims.subanims[9] // deaded
-		} else {
-			// subanim = subanims.subanims[3]
-			console.log("unknown:", frame)
+	if (hModel == 39) {
+		switch (animation) {
+			case 23:
+				entity.animComponent.playClip("idle");
+				break;
+			case 16:
+				entity.animComponent.playClip("walk");
+				break;
+			case 19:
+				entity.animComponent.playClip("jump");
+				break;
+			case 20:
+				//entity.animComponent.playClip("land");
+				break;
+			default:
+				console.log("unknown animation:", animation);
 		}
-		
-		
-		maila_anim_step(entity)
-		return
+		return;
 	}
 	
 	// rektman upper
@@ -207,7 +183,7 @@ RE_AddRefEntityToScene = function(
 				//console.log("modelname", modelname)
 				//gotEnt = entity;
 				//entity = mailas[1]
-				set_frame(entity, hModel, frame);
+				set_frame(entity, hModel, frame); // frame is animation now
 			}
 			// dont set the position for fps hands/weapons, they are supposed to be at 0,0,0 with identity rotation
 			if (entity.depthhack) {
