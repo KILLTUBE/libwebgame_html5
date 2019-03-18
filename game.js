@@ -38,7 +38,7 @@ mainloop = function() {
 
 		try {
 			if (showQuake) {
-				//_quake_set_widthheight(canvas.width, canvas.height);
+				_quake_set_widthheight(canvas.width, canvas.height);
 				//_GL_BindNullProgram()
 				//_GL_BindNullTextures()
 				//_R_BindNullVao()

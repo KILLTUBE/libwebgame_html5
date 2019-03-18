@@ -22,8 +22,11 @@ set_frame = function(oneframer, hModel, animation) {
 			case 23:
 				newClipName = "idle";
 				break;
-			case 16:
+			case 15:
 				newClipName = "walk";
+				break;
+			case 16:
+				newClipName = "run";
 				break;
 			case 19:
 				newClipName = "jump";
