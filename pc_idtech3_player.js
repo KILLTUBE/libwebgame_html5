@@ -119,6 +119,20 @@ Player.prototype.forward = function() {
 	return arr;
 }
 
+
+// precacheSound("sound/cash_register_open_coins_cha_ching_01.wav")
+// players[0].playSound("sound/cash_register_open_coins_cha_ching_01.wav");
+
+EV_GENERAL_SOUND = 45
+
+Player.prototype.playSound = function(path) {
+	var str = alloc_string(path);
+	var i = _G_SoundIndex(str);
+	_G_AddEvent(this.gent(), EV_GENERAL_SOUND, i);
+	_free(str);
+}
+
+
 //Object.defineProperty(Player.prototype, 'pos2', {
 //	get: function() {
 //		var n = _entity_get_position(0) >> 2 // divide by 4 for HEAPF32

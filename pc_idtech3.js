@@ -328,3 +328,10 @@ CM_LoadMap_async = async function(nameptr, clientload, checksum) {
 		_SV_SpawnServer_Resume();
 	}
 }
+
+precacheSound = function(path) {
+	var str = alloc_string(path);
+	var i = _G_SoundIndex(str);
+	_free(str);
+	return i;
+}
