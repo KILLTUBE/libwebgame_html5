@@ -201,14 +201,14 @@ q3_on_mouse_move = function(e) {
 	var delta_y = e.movementY;
 	var factor = delta_x / old_delta_x; // e.g. -520 / 30 = -17.333
 	if (Math.abs(delta_x) > 200) // bug range seems to be 400 to 500, positive and negative
-	if (Math.abs(factor) > 10) {
+	if (Math.abs(factor) > 5) {
 		console.log("FIX UP CHROME MOUSE BUG delta_x: " + delta_x + " old_delta_x:" + old_delta_x)
 		//delta_x = 0; // just use the old value then
 		return; // ignore whole faulty shit event
 	}
 	var factor2 = delta_y / old_delta_y; // e.g. -520 / 30 = -17.333
 	if (Math.abs(delta_y) > 200) // bug range seems to be 400 to 500, positive and negative
-	if (Math.abs(factor2) > 10) {
+	if (Math.abs(factor2) > 5) {
 		console.log("FIX UP CHROME MOUSE BUG delta_x: " + delta_y + " old_delta_x:" + old_delta_y)
 		//delta_y = 0; // just use the old value then
 		return; // ignore whole faulty shit event
