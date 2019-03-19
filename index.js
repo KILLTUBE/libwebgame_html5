@@ -40,7 +40,8 @@ skeletons = [];
 
 // pc_idtech3.js
 refents = {};
-trmodels = {};
+trmodels = [];
+trmodelsMap = {};
 globalDisableCount = 0;
 globalEnabledCount = 0;
 

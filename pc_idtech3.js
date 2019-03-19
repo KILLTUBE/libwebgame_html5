@@ -15,44 +15,34 @@ set_frame = function(oneframer, hModel, animation) {
 
 	oneframer.lastAnimation = animation;
 
-	// rektman_lower
-	if (hModel == 39) {
-		var newClipName = "";
-		switch (animation) {
-			case 23:
-				newClipName = "idle";
-				break;
-			case 15:
-				newClipName = "walk";
-				break;
-			case 16:
-				newClipName = "run";
-				break;
-			case 19:
-				newClipName = "jump";
-				break;
-			case 20:
-				//newClipName = "land";
-				break;
-			default:
-				console.log("unknown animation:", animation);
-		}
-		if (newClipName != "") {
-			//console.log("play ", newClipName);
-			entity.animComponent.crossFadeToClip(newClipName, 1);
-		}
-		return;
+	var newClipName = "";
+	switch (animation) {
+		case 23:
+			newClipName = "idle";
+			break;
+		case 15:
+			newClipName = "walk";
+			break;
+		case 16:
+			newClipName = "run";
+			break;
+		case 19:
+			newClipName = "jump";
+			break;
+		case 20:
+			newClipName = "land";
+			break;
+		default:
+			console.log("unknown animation:", animation, "entity", entity, "hModel", hModel);
 	}
-	
-	// rektman upper
-	if (hModel == 34) {
-		
-		//rektman_upper  = frame;
-		return;
+	if (newClipName != "") {
+		//console.log("play ", newClipName);
+		entity.animComponent.crossFadeToClip(newClipName, 0.4);
 	}
 	
 	// rektman_head
 	// death animation is only send to rektman_head it seems
+	/*
 	if (hModel == 35) {
 		//rektman_head = frame;
 		return;
@@ -63,7 +53,7 @@ set_frame = function(oneframer, hModel, animation) {
 		maila_anim_step(entity)
 		return
 	}
-	
+	*/
 	//console.log("hModel=", hModel, "frame=", frame)
 }
 
@@ -104,7 +94,7 @@ RE_AddRefEntityToScene = function(
 	forward_x, forward_y, forward_z,
 	right_x  ,   right_y, right_z  ,
 	up_x     ,      up_y, up_z,
-	renderfx, frame
+	renderfx, animation
 ) {
 	try {
 		if (renderfx & 2) { // RF_THIRD_PERSON
@@ -117,6 +107,7 @@ RE_AddRefEntityToScene = function(
 			depthhack = true;
 		
 		var modelname = trmodels[hModel]
+		//console.log(modelname);
 		
 		if (reType == 0) { // RE_MODEL
 		
@@ -135,7 +126,8 @@ RE_AddRefEntityToScene = function(
 			
 			var entity = find_oneframer(hModel, depthhack);
 			
-			// active entity if its disabled
+			// only activate entity if it was disabled,
+			// deactivation/activation causes useless CPU overhead
 			if (entity && entity.enabled == false) {
 				entity.enabled = true;
 			}
@@ -196,11 +188,9 @@ RE_AddRefEntityToScene = function(
 					oneframers.addChild(entity);
 			}
 			entity.usageCount = 1;
-			if (modelname == "rektman_lower") {
+			if (entity.children[0] && entity.children[0].animComponent) {
 				//console.log("modelname", modelname)
-				//gotEnt = entity;
-				//entity = mailas[1]
-				set_frame(entity, hModel, frame); // frame is animation now
+				set_frame(entity, hModel, animation);
 			}
 			// dont set the position for fps hands/weapons, they are supposed to be at 0,0,0 with identity rotation
 			if (entity.depthhack) {
@@ -233,9 +223,23 @@ RE_AddRefEntityToScene = function(
 	}
 }
 
-RE_RegisterModel_callback = function(modindex, modname) {
-	//console.log("RE_RegisterModel", arguments)
-	trmodels[modindex] = UTF8ToString(modname, 256);
+
+RE_RegisterModel_callback = function(modname) {
+	var id = trmodels.length;
+	var name = UTF8ToString(modname, 256);
+
+	// if we already assign an id towards this name,
+	// then return the old id
+	if (trmodelsMap[name]) {
+		var oldID = trmodelsMap[name];
+		console.log("register same model: oldID", oldID, "name", name);
+		return oldID;
+	}
+
+	console.log("RE_RegisterModel", modname, name, id);
+	trmodels.push( name );
+	trmodelsMap[name] = id;
+	return id;
 }
 
 RE_BeginFrame_callback = function(cg_fov, fov_x, fov_y) {
