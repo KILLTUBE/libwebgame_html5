@@ -102,6 +102,7 @@ reload = async function() {
 	urls.push("socketio.js");
 
 	urls.push("overlay.js");
+	urls.push("Crosshair.js");
 
 	// JS bindings to idtech3
 	urls.push("vec3_t.js");
