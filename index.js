@@ -101,6 +101,8 @@ reload = async function() {
 	urls.push("stuff.js");
 	urls.push("socketio.js");
 
+	urls.push("overlay.js");
+
 	// JS bindings to idtech3
 	urls.push("vec3_t.js");
 
