@@ -11,12 +11,12 @@ WindowMode_FullScreen = 2;
 
 fullwindow = function() {
 	windowmode = WindowMode_FullWindow;
-	canvas_and_overlay.style.position = "absolute";
-	canvas_and_overlay.style.width = window.innerWidth + "px";
-	canvas_and_overlay.style.height = window.innerHeight + "px";
+	//canvas_and_overlay.style.position = "absolute";
+	//canvas_and_overlay.style.width = window.innerWidth + "px";
+	//canvas_and_overlay.style.height = window.innerHeight + "px";
 	//canvas.width = window.innerWidth;
 	//canvas.height = window.innerHeight;
-	fixCanvasSizes(window.innerWidth, window.innerHeight);
+	//fixCanvasSizes(window.innerWidth, window.innerHeight);
 }
 
 ticks = function() {
@@ -38,7 +38,7 @@ mainloop = function() {
 
 		try {
 			if (showQuake) {
-				_quake_set_widthheight(canvas.width, canvas.height);
+				_quake_set_widthheight(window.innerWidth, window.innerHeight);
 				//_GL_BindNullProgram()
 				//_GL_BindNullTextures()
 				//_R_BindNullVao()
@@ -135,9 +135,9 @@ resize = function() {
 		// assume total screen width/height
 		var new_width = screen.width;
 		var new_height = screen.height;
-		canvas_and_overlay.style.position = "absolute"
-		canvas_and_overlay.style.left = "0px"
-		canvas_and_overlay.style.top = "0px"
+		//canvas_and_overlay.style.position = "absolute"
+		//canvas_and_overlay.style.left = "0px"
+		//canvas_and_overlay.style.top = "0px"
 		//canvas.style.left = 0;
 		//canvas.style.top = 0;
 		// but substract to window.innerHeight oder window.innerWidth if devtools are open
@@ -154,7 +154,7 @@ resize = function() {
 		//canvas.width = 900;
 		//canvas.height = 600;
 		//canvas.style.position = ""
-		canvas_and_overlay.style.position = "relative";
-		dim(900, 600);
+		//canvas_and_overlay.style.position = "relative";
+		//dim(900, 600);
 	}
 }

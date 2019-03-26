@@ -1,6 +1,11 @@
 playcanvas_setup = function() {
-	playcanvas = document.getElementById("playcanvas");
+	//playcanvas = document.getElementById("playcanvas");
+	playcanvas = document.createElement("canvas");
+	document.body.appendChild(playcanvas);
 	playcanvas.focus(); // focus the canvas for keyboard input
+	playcanvas.style.position = "absolute";
+	playcanvas.style.left = "0px";
+	playcanvas.style.top = "0px";
 	app = new pc.Application(playcanvas, {
 		mouse: new pc.Mouse(playcanvas),
 		keyboard: new pc.Keyboard(window)

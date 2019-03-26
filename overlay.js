@@ -15,6 +15,11 @@ function Overlay() {
 	window.addEventListener('resize', function () {
 		this.resize();
 	}.bind(this));
+
+	
+	this.element.onclick = function(e) {
+		this.element.requestPointerLock();
+	}.bind(this);
 }
 
 Overlay.prototype.resize = function() {

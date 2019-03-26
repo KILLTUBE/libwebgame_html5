@@ -223,8 +223,8 @@ q3_on_mouse_move = function(e) {
 on_mouse_move = function(e) {
 	//pos_left = e.pageX - e.currentTarget.offsetLeft;
 	//pos_top = e.pageY - e.currentTarget.offsetTop;
-	pos_left = e.pageX - canvas_and_overlay.offsetLeft;
-	pos_top = e.pageY - canvas_and_overlay.offsetTop;
+	pos_left = e.pageX - playcanvas.offsetLeft;
+	pos_top = e.pageY - playcanvas.offsetTop;
 	//console.log("px", e.pageX, "py", e.pageY)
 	//console.log("offsetLeft", e.currentTarget.offsetLeft, "offsetTop", e.currentTarget.offsetTop);
 	//console.log("pos_left", pos_left, "pos_top", pos_top)
@@ -245,7 +245,7 @@ K_MWHEELUP   = 184;
 
 q3_mouse_left_pressed = function() {
 	_Com_QueueEvent( 0, SE_KEY, K_MOUSE1, /*pressed*/1, 0, NULL );
-	gltf_maila_hands.children[0].script.anim.animComponent.animClips["ArmatureAction"].session.curTime = 0;
+	//gltf_maila_hands.children[0].script.anim.animComponent.animClips["ArmatureAction"].session.curTime = 0;
 }
 q3_mouse_right_pressed = function() {
 	_Com_QueueEvent( 0, SE_KEY, K_MOUSE2, /*pressed*/1, 0, NULL );

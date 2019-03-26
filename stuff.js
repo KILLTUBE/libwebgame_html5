@@ -108,11 +108,10 @@ after_main_called = function() {
 	windowmode = WindowMode_Small;
 	starttime = Date.now();
 		
-	canvas_and_overlay = document.getElementById("canvas_and_overlay");
-	overlay = document.getElementById("overlay");
-	
+	//canvas_and_overlay = document.getElementById("canvas_and_overlay");
+	overlay = new Overlay();
 	printstrings = document.createElement("div");
-	overlay.appendChild(printstrings);
+	overlay.element.appendChild(printstrings);
 	
 	fullwindow();
 	

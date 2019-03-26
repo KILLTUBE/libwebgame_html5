@@ -129,6 +129,8 @@ chatinput_onkeydown = function(e) {
 }
 
 chat_init = function() {
+	return;
+
 	chatdiv = document.getElementById("chatdiv")
 	chatinput = document.getElementById("chatinput")	
 	chatinput.onkeydown = function(e) {

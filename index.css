@@ -1,10 +1,9 @@
-/*
 * {
 	margin: 0;
 	padding: 0;
-	border: 0px none;
+	/*border: 0px none;*/
 }
-*/
+
 body {
 	/* for some reason this influences webgl color stuff */
 	/*background-color: black; 

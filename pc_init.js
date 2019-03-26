@@ -6,7 +6,7 @@ ensure_gltf_root = function() {
 }
 
 loadPlayCanvas = function() {
-	body.onresize = resize;
+	//body.onresize = resize;
 	
 	// asset stuff
 	app.loader.getHandler("texture").crossOrigin = "anonymous"
@@ -67,18 +67,25 @@ loadPlayCanvas = function() {
 	
 	window.addEventListener('resize', function () {
 		app.resizeCanvas(window.innerWidth, window.innerHeight);
+		crosshair.center();
 	});
 }
+
+gunpos = function(x, y, z) {
+    Cmd_ExecuteString("cg_gunx " + x);
+    Cmd_ExecuteString("cg_guny " + y);
+    Cmd_ExecuteString("cg_gunz " + z);
+}
+
+
 
 main_playcanvas = async function() {
 	init_fps_camera();
 	init_idtech3();
 	loadPlayCanvas();
-
+	crosshair = new Crosshair();
 	//sky_on()
 	sky_greenhouse();
-	_q3_main();
-	q3config();
 	//Cmd_ExecuteString("connect :");
 	showQuake = true;
 
@@ -87,22 +94,31 @@ main_playcanvas = async function() {
 		clip.loop = true;
 	console.log("maila loaded");
 
+
+	_q3_main();
+	q3config();
+	_Com_Frame();
+	_Com_Frame();
+	_Com_Frame();
+	_Com_Frame();
 	//await devmap("atcs")
 	//await devmap("mp_beginning_quake3")
 	//await devmap("mp_toujane")
-	await devmap("city");
+	//await devmap("city");
 	//await devmap("haus");
 	
 
+	//await wait(1000);
+	gunpos(20,-5,-5) // for/back, left/right, top/bottom
+	//gltf_maila_hands = await spawn_maila_hands();
+	//gltf_maila_hands.animComponent.playSubstring("idle");
 
-	gltf_maila_hands = await spawn_maila_hands();
-	gltf_maila_hands.animComponent.playSubstring("idle");
 	//gltf_maila_hands.animComponent.animClips.map((clip)=>clip.name)
 	//gltf_maila_hands.animComponent.animClips.map((clip)=>clip.pause())
 	
 	// for some reason setting `{layers: [5]}` doesnt work yet, those layer values are all `15`
-	for (var mi of gltf_maila_hands.model.meshInstances)
-		mi.layer = 5;
+	//for (var mi of gltf_maila_hands.model.meshInstances)
+	//	mi.layer = 5;
 	//entity_cam.addChild(gltf_maila_hands);
 	
 	//mp44 = await spawn_mp44();
@@ -139,6 +155,8 @@ main_playcanvas = async function() {
 		for (var player of players) {
 			player.assignDataViews();
 		}
+
+		await devmap("city");
 
 		app.on("postrender", function() {
 			mainloop();
