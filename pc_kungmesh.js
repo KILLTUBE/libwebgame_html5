@@ -46,7 +46,7 @@ add = function(entity) {
 }
 
 // crowbar = add( kungmesh_spawn("crowbar", worldLayer.id) )
-kungmesh_spawn = function(name, layer_id, cull) {
+kungmesh_spawn = function(name, layer_id, cull, blend) {
 	var entity = new pc.Entity(name) 
 	entity.addComponent("model", {
 		//layers: [worldLayer.id/*, weaponlayer.id*/] // put this entity on weaponlayer so it isnt loosing depth test against world models
@@ -63,6 +63,8 @@ kungmesh_spawn = function(name, layer_id, cull) {
 		pc.Texture.fetch(url + "libwebgame/kungmodels/" + name + "/triangles_0.jpg").then(function(texture){
 			material.diffuseMap = texture;
 			material.update();
+			if (typeof blend !== "undefined")
+				entity.model.meshInstances[0].material.blendType = blend;
 		})
 	})
 	return entity;

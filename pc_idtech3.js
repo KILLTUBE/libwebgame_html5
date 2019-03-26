@@ -32,6 +32,9 @@ set_frame = function(oneframer, hModel, animation) {
 		case 20:
 			newClipName = "land";
 			break;
+		case 24:
+			newClipName = "crouch";
+			break;
 		default:
 			console.log("unknown animation:", animation, "entity", entity, "hModel", hModel);
 	}
@@ -85,7 +88,8 @@ init_idtech3 = function() {
 }
 
 // it has a black background, make it transparent
-//Muzzleflash.material.blendType = pc.BLEND_ADDITIVEALPHA
+// Muzzleflash.material.blendType = pc.BLEND_ADDITIVEALPHA
+// oneframers.children[4].model.meshInstances[0].material.blendType = pc.BLEND_ADDITIVEALPHA
 
 RE_AddRefEntityToScene = function(
 	reType, hModel,
@@ -143,12 +147,12 @@ RE_AddRefEntityToScene = function(
 				
 				try {
 					if (modelname == "kungmodels/crowbar.kung1") {
-						//entity = kungmesh_spawn("crowbar", layer_id, pc.CULLFACE_FRONT);
-						entity = gltf_maila_hands;
+						entity = kungmesh_spawn("crowbar", layer_id, pc.CULLFACE_FRONT);
+						//entity = gltf_maila_hands;
 					} else if (modelname == "kungmodels/sword.kung1") {
 						entity = kungmesh_spawn("sword", layer_id, pc.CULLFACE_FRONT);
 					} else if (modelname == "kungmodels/muzzleflash.kung1") {
-						entity = kungmesh_spawn("muzzleflash", layer_id, pc.CULLFACE_FRONT);
+						entity = kungmesh_spawn("muzzleflash", layer_id, pc.CULLFACE_FRONT, pc.BLEND_ADDITIVEALPHA);
 					} else if (modelname == "kungmodels/kar98.kung1") {
 						entity = kungmesh_spawn("kar98", layer_id, pc.CULLFACE_FRONT);
 					} else if (modelname == "kungmodels/bazooka.kung1") {
@@ -193,6 +197,7 @@ RE_AddRefEntityToScene = function(
 				set_frame(entity, hModel, animation);
 			}
 			// dont set the position for fps hands/weapons, they are supposed to be at 0,0,0 with identity rotation
+			/*
 			if (entity.depthhack) {
 				entity.setPosition( _viewpos_x()/100,_viewpos_z()/100,_viewpos_y()/-100);
 				entity.ex  = _viewpos_pitch() * -1;
@@ -202,6 +207,7 @@ RE_AddRefEntityToScene = function(
 				//entity.setLocalRotation(entity_cam.getLocalRotation());
 				return;
 			}
+			*/
 			var origin  = new pc.Vec3(origin_x/100, origin_z/100, origin_y/-100);
 			// only update via setLocalPosition when origin actually changed, because this functions eats lots of milliseconds per frame :S
 			if (entity.oldPos.equals(origin) == false) {
@@ -228,7 +234,7 @@ RE_RegisterModel_callback = function(modname) {
 	var id = trmodels.length;
 	var name = UTF8ToString(modname, 256);
 
-	// if we already assign an id towards this name,
+	// if we already assigned an id towards this name,
 	// then return the old id
 	if (trmodelsMap[name]) {
 		var oldID = trmodelsMap[name];
@@ -302,7 +308,7 @@ CM_LoadMap_async = async function(nameptr, clientload, checksum) {
 	var posSlash = mappath.indexOf("/");
 	var posPoint = mappath.indexOf(".");
 	var mapname = mappath.substring(posSlash + 1, posPoint);
-	console.log("Loading Map: ", mapname);
+	console.log("Loading Map: ", mapname, "mappath=", mappath);
 	// deactivate all maps, keep played maps cached
 	maps.children.forEach((entity) => entity.enabled = false)
 	var currentMap = maps.findByName(mapname)
