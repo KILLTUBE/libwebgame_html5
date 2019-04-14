@@ -1,10 +1,22 @@
-AnimatedHistoryText = function(left_, top_, fontsize_, glow_) {
+/**
+ * @constructor
+ * @param {number} left_ 
+ * @param {number} top_ 
+ * @param {number} fontsize_ 
+ * @param {boolean} glow_ 
+ */
+
+var AnimatedHistoryText = function(left_, top_, fontsize_, glow_) {
 	this.left = left_;
 	this.top = top_;
 	this.fontsize = fontsize_;
 	this.glow = glow_;
-	this.textlines = []
+	this.textlines = [];
 }
+
+/**
+ * @param {string} text
+ */
 
 AnimatedHistoryText.prototype.addText = function(text) {
 	this.textlines.push( new TextLine(text, this.fontsize, this.glow) )
@@ -15,16 +27,14 @@ AnimatedHistoryText.prototype.addText = function(text) {
 }
 
 AnimatedHistoryText.prototype.update = function() {
-	gt = gametime()
-	
-	deltaTop = 0; // 0 alpha = deltaTop=0, but 1 alpha = 40 deltaTop, so elements go up when fading out and let the others replace them
-	belowNormal = 40
-	first = true;
-
-	counter = 0;
+	var gt = gametime()
+	var deltaTop = 0; // 0 alpha = deltaTop=0, but 1 alpha = 40 deltaTop, so elements go up when fading out and let the others replace them
+	var belowNormal = 40
+	var first = true;
+	var counter = 0;
 	for (var i=this.textlines.length - 1; i>=0; i--) {
-		textline = this.textlines[i]
-		displayedTime = gt - textline.time;
+		var textline = this.textlines[i]
+		var displayedTime = gt - textline.time;
 		
 		if (displayedTime > 2000)
 			textline.dispose = true;

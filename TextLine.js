@@ -1,4 +1,11 @@
-TextLine = function(text, fontsize, glow) {
+/**
+ * @constructor
+ * @param {string} text 
+ * @param {number} fontsize 
+ * @param {boolean} glow 
+ */
+
+var TextLine = function(text, fontsize, glow) {
 	this.text = text;
 	this.time = gametime();
 	this.dispose = false;
@@ -51,5 +58,5 @@ TextLine.prototype.fadeOut = function(seconds) {
 	if (this.fadingOut)
 		return;
 	this.element.style.transition = "opacity " + seconds + "s linear"
-	this.element.style.opacity = 0
+	this.element.style.opacity = "0";
 }

@@ -5,7 +5,7 @@
 function Overlay() {
 	this.element = document.createElement("div");
 	this.element.style.position = "absolute";
-	this.element.style.zIndex = 10; // on top of everything else
+	this.element.style.zIndex = "10"; // on top of everything else
 	this.element.oncontextmenu = function(e) {
 		console.log("overlay.element.oncontextmenu");
 		e.preventDefault();
@@ -17,7 +17,7 @@ function Overlay() {
 	}.bind(this));
 
 	
-	this.element.onclick = function(e) {
+	this.element.onclick = function(/*e*/) {
 		this.element.requestPointerLock();
 	}.bind(this);
 }
