@@ -2,9 +2,6 @@ gametime = function() {
 	return Date.now() - starttime;
 }
 
-width  = function() { return overlay.clientWidth; }
-height = function() { return overlay.clientHeight; }
-
 WindowMode_Small = 0;
 WindowMode_FullWindow = 1;
 WindowMode_FullScreen = 2;
@@ -72,9 +69,6 @@ mainloop = function() {
 	//requestAnimationFrame(mainloop);
 }
 
-
-Game = function() {}
-
 fixCanvasSizes = function(width, height) {
 	for (var i=0; i<canvas_and_overlay.children.length; i++) {
 		var node = canvas_and_overlay.children[i];
@@ -94,6 +88,9 @@ dim = function(width, height) {
 	fixCanvasSizes(width, height);
 }
 
+/*
+Game = function() {}
+
 Game.fullscreen = function() {
 	// this fullscreen is triggered e.g. by a button
 	// we request the fullscreen, that means ESC will immediately kill the fullscreen
@@ -103,6 +100,7 @@ Game.fullscreen = function() {
 	//$(canvas).fullScreen(true);
 	$(canvas_and_overlay).fullScreen(true);
 }
+*/
 
 fullscreenchange = function() {
 	if (isFullscreen()) {
