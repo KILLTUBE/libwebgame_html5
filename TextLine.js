@@ -25,27 +25,30 @@ var TextLine = function(text, fontsize, glow) {
 	}
 	//this.measuredWidth = ctx.measureText("text").width; // completly out of touch with reality
 	this.measuredWidth = text.length * fontsize/2; // really nice approximation, 36 is font size
-	overlay.appendChild(this.element)
+	document.body.appendChild(this.element)
 	this.fadingOut = false;
 }
 
 TextLine.prototype.destroy = function() {
-	overlay.removeChild( this.element );
+	document.body.removeChild( this.element );
 }
 
+/**
+ * @param {number} left_
+ * @param {number} top_
+ */
+
 TextLine.prototype.setPosition = function(left_, top_) {
-	var scaleLeft = width() / 640;
-	var scaleTop = height() / 480;
+	var scaleLeft = window.innerWidth / 640;
+	var scaleTop = window.innerHeight / 480;
 
 	//left_ *= scaleX;
 	//top_ *= scaleY;
 
 	var blaLeft = left_ * scaleLeft;
 	if (left_ == -1) {
-		blaLeft = (width() - this.measuredWidth) / 2
-		
+		blaLeft = (window.innerWidth - this.measuredWidth) / 2
 	}
-	
 	
 	//centerLeft = this.measuredWidth;
 	//centerLeft *= scaleX;
@@ -53,6 +56,10 @@ TextLine.prototype.setPosition = function(left_, top_) {
 	this.element.style.left = blaLeft+ "px";
 	this.element.style.top = top_ * scaleTop  + "px";
 }
+
+/**
+ * @param {number} seconds
+ */
 
 TextLine.prototype.fadeOut = function(seconds) {
 	if (this.fadingOut)
